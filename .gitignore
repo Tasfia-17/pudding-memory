@@ -2,3 +2,7 @@ node_modules/
 package-lock.json
 .DS_Store
 *.log
+
+# Backend secrets
+backend/.env
+backend/hydradb/

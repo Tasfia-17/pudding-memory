@@ -398,15 +398,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 - **OpenDyslexic** for the accessibility font
 - **Accessibility Community** for feedback and inspiration
 - **[Lingo.dev](https://lingo.dev)** for making multilingual accessibility possible
-- **Y Combinator** for supporting innovative devtools
 
 ---
 
-## 🏆 Hackathon Submission
-
-This project was enhanced for the **[Lingo.dev Multilingual Hackathon #2](https://lingo.dev)** (Feb 16-23, 2026).
-
-### What We Built
 
 We integrated Lingo.dev's i18n toolkit to make Pudding accessible in 10 languages, expanding our reach from 1.5B to 5B+ people worldwide.
 

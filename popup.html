@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pudding</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="mainContent">
+        <div class="container">
+            <header>
+                <div class="title">
+                    <img src="images/pudding-32.svg" alt="Pudding" class="pudding-icon">
+                    <h1 data-i18n="title">Pudding</h1>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <select id="languageSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ddd; font-size: 12px;">
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="de">🇩🇪 DE</option>
+                        <option value="ar">🇸🇦 AR</option>
+                        <option value="zh">🇨🇳 ZH</option>
+                        <option value="ja">🇯🇵 JA</option>
+                        <option value="hi">🇮🇳 HI</option>
+                        <option value="pt">🇵🇹 PT</option>
+                        <option value="bn">🇧🇩 BN</option>
+                    </select>
+                    <button class="settings-button" aria-label="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="simplification-level">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-wand-magic-sparkles text-icon"></i> 
+                    <span data-i18n="simplificationLevel">Simplification Level</span>
+                    <i class="fa-solid fa-circle-question help-icon" aria-expanded="false"></i>
+                </h2>
+                <div class="button-row" id="simplificationButtonRow">
+                    <button class="simplification-button" data-level="1" data-i18n="low">Low</button>
+                    <button class="simplification-button selected" data-level="3" data-i18n="mid">Mid</button>
+                    <button class="simplification-button" data-level="5" data-i18n="high">High</button>
+                </div>
+                <div id="simplificationGuide" class="simplification-guide">
+                    <p class="helper-text" data-i18n="simplificationHelp">Choose how much to simplify the text content</p>
+                    <p></p>
+                    <ul>
+                        <li><strong data-i18n="low">Low</strong> - <span data-i18n="lowDesc">Minor text adjustments</span></li>
+                        <li><strong data-i18n="mid">Mid</strong> - <span data-i18n="midDesc">Balanced simplification</span></li>
+                        <li><strong data-i18n="high">High</strong> - <span data-i18n="highDesc">Maximum clarity</span></li>
+                    </ul>
+                </div>
+
+                
+            </div>
+            <div class="optimization-mode">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-sliders text-icon"></i>
+                    Optimization Mode
+                    <i id="helpIconOptimize" class="fa-solid fa-circle-question help-icon" aria-expanded="false"></i>
+                </h2>
+                <div class="dropdown-container">
+                <select id="optimizeSelector">
+                    <option value="textClarity" selected>Simplify Complex Ideas</option>
+                    <option value="focusStructure">Better Visual Organization</option>
+                    <option value="wordPattern">Easier Reading Flow</option>
+                </select>
+            </div>
+            <div id="optimizeGuide" class="optimize-guide">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <div>
+                                <strong>Simplify Complex Ideas</strong>
+                                <span>- Breaks down difficult concepts</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-eye"></i>
+                            <div>
+                                <strong>Better Visual Organization</strong>
+                                <span>- Uses shorter sections and highlights</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-book-open"></i>
+                            <div>
+                                <strong>Easier Reading Flow</strong>
+                                <span>- Makes text more predictable to read</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button id="simplifyText">
+                <span id="simplifyButtonText" data-i18n="simplifyText">Simplify Text</span>
+                <span id="loader" class="loader" style="display: none;"></span>
+            </button>
+            
+            <button id="translatePageBtn" style="margin-top: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <span data-i18n="translatePage">Translate Page</span>
+            </button>
+
+            <!-- Features -->
+            <div class="advanced-features">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-sparkles text-icon"></i>
+                    Features
+                </h2>
+                
+                <div class="feature-buttons">
+                    <button id="smartAutoBtn" class="feature-btn">
+                        <i class="fa-solid fa-wand-sparkles"></i> Smart Auto
+                    </button>
+                    <button id="readingBeamBtn" class="feature-btn">
+                        <i class="fa-solid fa-highlighter"></i> Reading Beam
+                    </button>
+                </div>
+                
+                <div class="feature-buttons">
+                    <button id="vocabAdaptBtn" class="feature-btn">
+                        <i class="fa-solid fa-book"></i> Vocab Helper
+                    </button>
+                    <button id="autoChunkBtn" class="feature-btn">
+                        <i class="fa-solid fa-grip-lines"></i> Auto Chunk
+                    </button>
+                </div>
+                
+                <div class="feature-buttons">
+                    <button id="focusModeBtn" class="feature-btn">
+                        <i class="fa-solid fa-eye"></i> Focus Mode
+                    </button>
+                    <button id="complexityMapBtn" class="feature-btn">
+                        <i class="fa-solid fa-chart-line"></i> Complexity Map
+                    </button>
+                </div>
+                
+                <div class="feature-buttons">
+                    <button id="restructureBtn" class="feature-btn">
+                        <i class="fa-solid fa-list"></i> Smart Structure
+                    </button>
+                    <button id="adaptiveModeBtn" class="feature-btn">
+                        <i class="fa-solid fa-brain"></i> Adaptive Mode
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Spacing Controls -->
+        </div>
+    </div>
+    <div id="settingsPage" style="display: none;">
+        <div class="container">
+            <header>
+                <h1>Settings</h1>
+                <button class="back-button" aria-label="Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </header>
+            
+            <!-- Display Category -->
+            <h2 class="section-title">
+                <i class="fas fa-desktop"></i> Display
+            </h2>
+            
+            <div class="toggle-container">
+                <span class="toggle-label">OpenDyslexic Font</span>
+                <label class="toggle">
+                    <input type="checkbox" id="fontToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div class="dropdown-container">
+                <select id="themeSelector">
+                    <option value="creamPaper">Cream Paper</option>
+                    <option value="default">Default</option>
+                    <option value="darkMode">Dark Mode</option>
+                    <option value="sepia">Sepia</option>
+                </select>
+            </div>
+
+            <!-- Spacing Category -->
+            <h2 class="section-title">
+                <i class="fas fa-text-width"></i> Spacing
+            </h2>
+
+            <div class="slider-container">
+                <label for="lineSpacing">Line Spacing <span id="lineSpacingValue">2x</span></label>
+                <input type="range" id="lineSpacing" min="1" max="3" step="0.1" value="2">
+            </div>
+
+            <div class="slider-container">
+                <label for="letterSpacing">Letter Spacing <span id="letterSpacingValue">1.5x</span></label>
+                <input type="range" id="letterSpacing" min="0" max="5" step="0.1" value="1.5">
+            </div>
+
+            <div class="slider-container">
+                <label for="wordSpacing">Word Spacing <span id="wordSpacingValue">4x</span></label>
+                <input type="range" id="wordSpacing" min="0" max="10" step="0.5" value="4">
+            </div>
+            <button id="resetDefaults">
+                <i class="fas fa-undo"></i> Reset to Defaults
+            </button>
+        </div>
+    </div>
+    <script src="config.js"></script>
+    <script src="i18n-helper.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

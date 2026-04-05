@@ -44,7 +44,7 @@
     "run_at": "document_start"
   }],
   "web_accessible_resources": [{
-    "resources": ["fonts/*", "config.js", "graph.html", "graph.js", "images/*", "vis-network.min.js"],
+    "resources": ["fonts/*", "config.js", "graph.html", "graph.js", "simplified.html", "images/*", "vis-network.min.js"],
     "matches": ["<all_urls>"]
   }],
   "options_page": "options.html"

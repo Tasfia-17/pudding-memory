@@ -2,30 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Brain Map – Pudding</title>
+    <title>My Brain Map – Pudding × HydraDB</title>
     <script src="../vis-network.min.js"></script>
     <style>
-        body { margin: 0; background: #0f0f1a; color: #eee; font-family: Inter, sans-serif; }
-        header { padding: 16px 24px; background: #1a1a2e; display: flex; align-items: center; gap: 12px; }
-        header h1 { margin: 0; font-size: 18px; }
-        #legend { padding: 8px 24px; font-size: 13px; display: flex; gap: 20px; background: #12122a; }
-        .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; }
-        #network { width: 100vw; height: calc(100vh - 90px); }
-        #status { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-                  background: #222; padding: 8px 16px; border-radius: 8px; font-size: 13px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0f0f1a; color: #eee; font-family: Inter, sans-serif; height: 100vh; display: flex; flex-direction: column; }
+        header { padding: 14px 20px; background: #1a1a2e; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #F4C54222; }
+        header h1 { font-size: 17px; }
+        header span { font-size: 12px; color: #F4C542; background: #F4C54222; padding: 2px 10px; border-radius: 20px; border: 1px solid #F4C54244; }
+        #legend { padding: 6px 20px; font-size: 12px; display: flex; gap: 20px; background: #12122a; color: #aaa; }
+        .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+        #main { display: flex; flex: 1; overflow: hidden; }
+        #network { flex: 1; }
+        #node-detail {
+            display: none;
+            width: 260px;
+            background: #1a1a2e;
+            border-left: 1px solid #F4C54233;
+            padding: 20px 16px;
+            overflow-y: auto;
+            font-size: 13px;
+        }
+        #node-detail h3 { color: #F4C542; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+        #status { padding: 6px 20px; background: #12122a; font-size: 12px; color: #666; border-top: 1px solid #ffffff11; }
     </style>
 </head>
 <body>
     <header>
-        <img src="images/pudding-32.svg" alt="" width="28">
+        <img src="images/pudding-32.svg" alt="" width="26">
         <h1>My Brain Map</h1>
+        <span>Powered by HydraDB</span>
     </header>
     <div id="legend">
-        <span><span class="dot" style="background:#e74c3c"></span>Struggling (score ≥ 60)</span>
-        <span><span class="dot" style="background:#2ecc71"></span>Mastered (score &lt; 60)</span>
+        <span><span class="dot" style="background:#e74c3c"></span>Struggling (score ≥ 60) — auto-highlighted on next visit</span>
+        <span><span class="dot" style="background:#2ecc71"></span>Mastered (score &lt; 60) — deprioritized in recall</span>
+        <span style="margin-left:auto">Click a node for details</span>
     </div>
-    <div id="network"></div>
-    <div id="status">Loading your cognitive graph…</div>
+    <div id="main">
+        <div id="network"></div>
+        <div id="node-detail"><h3>Concept Detail</h3></div>
+    </div>
+    <div id="status">Loading your cognitive graph from HydraDB…</div>
     <script src="graph.js"></script>
 </body>
 </html>

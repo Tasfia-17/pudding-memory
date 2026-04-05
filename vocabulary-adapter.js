@@ -108,7 +108,7 @@ class VocabularyAdapter {
                 border-top-color: #b86f4d;
             }
         `;
-        document.head.appendChild(style);
+        (document.head || document.documentElement).appendChild(style);
 
         // Add hover listeners
         document.addEventListener('mouseover', (e) => {

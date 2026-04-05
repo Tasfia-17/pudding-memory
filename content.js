@@ -618,44 +618,35 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     
     if (request.action === "enableVocabAdapter") {
-        const mainContent = document.querySelector('main, article, .content, #content');
-        if (mainContent && window.vocabularyAdapter) {
+        const mainContent = document.querySelector('main, article, .content, #content') || document.body;
+        if (window.vocabularyAdapter) {
             window.vocabularyAdapter.scanAndEnhance(mainContent);
             sendResponse({success: true});
-        } else {
-            sendResponse({success: false});
-        }
+        } else { sendResponse({success: false}); }
         return true;
     }
     
     if (request.action === "autoChunk") {
-        const mainContent = document.querySelector('main, article, .content, #content');
-        if (mainContent) {
-            const paragraphs = mainContent.querySelectorAll('p');
-            paragraphs.forEach(p => {
-                const text = p.textContent;
-                const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
-                
-                if (sentences.length > 4) {
-                    p.innerHTML = '';
-                    let chunk = [];
-                    sentences.forEach((sentence, idx) => {
-                        chunk.push(sentence);
-                        if (chunk.length === 3 || idx === sentences.length - 1) {
-                            const div = document.createElement('div');
-                            div.textContent = chunk.join(' ');
-                            div.style.marginBottom = '15px';
-                            div.style.lineHeight = '1.8';
-                            p.appendChild(div);
-                            chunk = [];
-                        }
-                    });
-                }
-            });
-            sendResponse({success: true});
-        } else {
-            sendResponse({success: false});
-        }
+        const mainContent = document.querySelector('main, article, .content, #content') || document.body;
+        const paragraphs = mainContent.querySelectorAll('p');
+        paragraphs.forEach(p => {
+            const sentences = p.textContent.match(/[^.!?]+[.!?]+/g) || [];
+            if (sentences.length > 4) {
+                p.innerHTML = '';
+                let chunk = [];
+                sentences.forEach((s, idx) => {
+                    chunk.push(s);
+                    if (chunk.length === 3 || idx === sentences.length - 1) {
+                        const div = document.createElement('div');
+                        div.textContent = chunk.join(' ');
+                        div.style.cssText = 'margin-bottom:15px;line-height:1.8';
+                        p.appendChild(div);
+                        chunk = [];
+                    }
+                });
+            }
+        });
+        sendResponse({success: true});
         return true;
     }
     
@@ -672,47 +663,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     
     if (request.action === "showComplexityMap") {
-        const mainContent = document.querySelector('main, article, .content, #content');
-        if (mainContent && window.complexityAnalyzer) {
+        const mainContent = document.querySelector('main, article, .content, #content') || document.body;
+        if (window.complexityAnalyzer) {
             window.complexityAnalyzer.highlightComplexity(mainContent);
             sendResponse({success: true});
-        } else {
-            sendResponse({success: false});
-        }
+        } else { sendResponse({success: false}); }
         return true;
     }
     
     if (request.action === "restructureContent") {
-        const mainContent = document.querySelector('main, article, .content, #content');
-        if (mainContent && window.contentRestructurer) {
+        const mainContent = document.querySelector('main, article, .content, #content') || document.body;
+        if (window.contentRestructurer) {
             window.contentRestructurer.restructureContent(mainContent);
             sendResponse({success: true});
-        } else {
-            sendResponse({success: false});
-        }
+        } else { sendResponse({success: false}); }
         return true;
     }
     
     if (request.action === "enableAdaptiveMode") {
         adaptiveModeActive = !adaptiveModeActive;
-        
-        if (adaptiveModeActive && window.cognitiveTracker) {
-            // Use cognitive tracker data to auto-adjust
-            const level = window.cognitiveTracker.getAdaptationLevel();
-            console.log('Adaptive mode: Auto-detected level', level);
-            
-            // Auto-apply features based on reading behavior
-            if (window.cognitiveTracker.shouldBreakIntoBullets()) {
-                const mainContent = document.querySelector('main, article, .content, #content');
-                if (mainContent) window.contentRestructurer.restructureContent(mainContent);
-            }
-            
-            if (window.cognitiveTracker.shouldAddSubheadings()) {
-                const mainContent = document.querySelector('main, article, .content, #content');
-                if (mainContent) window.contentRestructurer.addInlineSummaries(mainContent);
-            }
+        if (adaptiveModeActive) {
+            const mainContent = document.querySelector('main, article, .content, #content') || document.body;
+            if (window.complexityAnalyzer) window.complexityAnalyzer.highlightComplexity(mainContent);
+            if (window.contentRestructurer) window.contentRestructurer.restructureContent(mainContent);
         }
-        
         sendResponse({success: true, active: adaptiveModeActive});
         return true;
     }

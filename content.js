@@ -306,7 +306,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 const chunks = [];
                 let currentChunk = [];
                 let currentTokenCount = 0;
-                const MAX_TOKENS = 800; // Leave room for prompt text and response
+                const MAX_TOKENS = 2000; // Larger chunks = fewer API calls = faster
 
                 for (let i = 0; i < contentElements.length; i++) {
                     const element = contentElements[i];
@@ -373,7 +373,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         // Send the chunkText as the prompt with retries
                         let simplifiedText = '';
                         let attempts = 0;
-                        const maxAttempts = 3; // Gemini API is reliable, no need for 20 retries
+                        const maxAttempts = 2;
                         
                         while (attempts < maxAttempts) {
                             try {
@@ -401,7 +401,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                                 if (attempts === maxAttempts - 1) throw error;
                             }
                             attempts++;
-                            await new Promise(resolve => setTimeout(resolve, 500));
+                            await new Promise(resolve => setTimeout(resolve, 200));
                         }
 
                         if (!simplifiedText || simplifiedText.trim().length === 0) {

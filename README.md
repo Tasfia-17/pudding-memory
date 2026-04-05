@@ -14,18 +14,7 @@
 
 ---
 
-## 🌟 NEW: Multilingual Support powered by Lingo.dev
 
-**Pudding now speaks 10 languages!** Built for the Lingo.dev Multilingual Hackathon #2, we've integrated Lingo.dev's i18n toolkit to make accessibility truly global.
-
-### Supported Languages
-🇬🇧 English • 🇪🇸 Spanish • 🇫🇷 French • 🇩🇪 German • 🇸🇦 Arabic • 🇨🇳 Chinese • 🇯🇵 Japanese • 🇮🇳 Hindi • 🇵🇹 Portuguese • 🇧🇩 Bengali
-
-**Why it matters**: Reading difficulties exist in every language. With Lingo.dev, we're reaching 5 billion+ people worldwide.
-
-📖 [Read the full integration story](LINGO_INTEGRATION.md) • 🎬 [Demo Guide](DEMO_GUIDE.md)
-
----
 
 ## The Problem
 

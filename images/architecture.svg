@@ -1,4 +1,4 @@
-<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="480" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="archBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
@@ -10,8 +10,11 @@
   <rect width="600" height="400" fill="url(#archBg)"/>
   
   <!-- Title -->
-  <text x="300" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c1810" text-anchor="middle">
+  <text x="300" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c1810" text-anchor="middle">
     How Pudding Works
+  </text>
+  <text x="300" y="50" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#F4C542" text-anchor="middle" style="paint-order:stroke" stroke="#2c1810" stroke-width="3">
+    Powered by HydraDB — Long-Term Cognitive Memory
   </text>
   
   <!-- Layer 1: Web Page -->
@@ -53,9 +56,22 @@
   <path d="M 300 290 L 300 320" stroke="#8b5a3c" stroke-width="2" fill="none"/>
   <polygon points="300,320 295,310 305,310" fill="#8b5a3c"/>
   
-  <!-- Layer 4: Enhanced Content -->
-  <rect x="150" y="320" width="300" height="50" rx="8" fill="#51cf66" stroke="#2b8a3e" stroke-width="2"/>
-  <text x="300" y="350" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#fff" text-anchor="middle">
+  <!-- Layer 4: HydraDB -->
+  <rect x="100" y="320" width="400" height="50" rx="8" fill="#1a1a2e" stroke="#F4C542" stroke-width="3"/>
+  <text x="300" y="340" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#F4C542" text-anchor="middle">
+    HydraDB
+  </text>
+  <text x="300" y="358" font-family="Arial, sans-serif" font-size="10" fill="#aaa" text-anchor="middle">
+    Cognitive Graph — Remembers your struggles across sessions
+  </text>
+
+  <!-- Arrow -->
+  <path d="M 300 370 L 300 400" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="300,400 295,390 305,390" fill="#8b5a3c"/>
+  
+  <!-- Layer 5: Enhanced Content -->
+  <rect x="150" y="400" width="300" height="50" rx="8" fill="#51cf66" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="300" y="430" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#fff" text-anchor="middle">
     Enhanced, Easy-to-Read Content
   </text>
   

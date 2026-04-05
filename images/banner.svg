@@ -41,28 +41,31 @@
   </text>
   
   <!-- Subtitle -->
-  <text x="250" y="180" font-family="Arial, sans-serif" font-size="28" fill="#8b5a3c">
+  <text x="250" y="175" font-family="Arial, sans-serif" font-size="24" fill="#8b5a3c">
     Smooth, Delightful Web Accessibility
+  </text>
+  <text x="250" y="200" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a2e">
+    Powered by HydraDB — Long-Term Cognitive Memory
   </text>
   
   <!-- Features -->
-  <g transform="translate(250, 210)">
-    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
-    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
-      🧠 AI-Powered
+  <g transform="translate(250, 220)">
+    <rect x="0" y="0" width="160" height="35" rx="17.5" fill="#1a1a2e" stroke="#F4C542" stroke-width="2"/>
+    <text x="80" y="23" font-family="Arial, sans-serif" font-size="15" fill="#F4C542" text-anchor="middle" font-weight="bold">
+      🧠 HydraDB
     </text>
   </g>
   
-  <g transform="translate(450, 210)">
-    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
-    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
+  <g transform="translate(430, 220)">
+    <rect x="0" y="0" width="160" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
+    <text x="80" y="23" font-family="Arial, sans-serif" font-size="15" fill="#2c1810" text-anchor="middle" font-weight="600">
       🔒 100% Offline
     </text>
   </g>
   
-  <g transform="translate(650, 210)">
-    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
-    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
+  <g transform="translate(610, 220)">
+    <rect x="0" y="0" width="160" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
+    <text x="80" y="23" font-family="Arial, sans-serif" font-size="15" fill="#2c1810" text-anchor="middle" font-weight="600">
       ♿ Accessible
     </text>
   </g>

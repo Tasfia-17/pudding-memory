@@ -240,342 +240,65 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     id: mainContent.id
                 });
 
-                // Helper function to check if element is a header
-                const isHeader = (element) => {
-                    return element.tagName.match(/^H[1-6]$/i);
-                };
-
-                // Helper function to estimate token count (rough approximation)
-                const estimateTokens = (text) => {
-                    return text.split(/\s+/).length * 1.3; // Multiply by 1.3 as a safety factor
-                };
-
-                // Get all content elements (paragraphs, headers, and lists)
-                // More detailed logging of the main content element
-                console.log('Main content structure:', {
-                    innerHTML: mainContent.innerHTML.substring(0, 200) + '...',
-                    childNodes: mainContent.childNodes.length,
-                    children: mainContent.children.length
-                });
-
-                // Try to find article content with more specific selectors
-                const contentElements = Array.from(mainContent.querySelectorAll([
-                    'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'dl',
-                    '.article-content p',
-                    '.article-body p',
-                    '.story-body p',
-                    '.article-text p',
-                    '.story-content p',
-                    '[itemprop="articleBody"] p',
-                    '.article p',
-                    '.story p'
-                ].join(', ')))
-                .filter(el => {
-                    if (isHeader(el)) return true;
-                    
-                    // Skip elements that are likely metadata
-                    const isMetadata = 
-                        el.closest('.author, .meta, .claps, .likes, .stats, .profile, .bio, header, footer, .premium-box') ||
-                        (el.tagName !== 'UL' && el.tagName !== 'OL' && el.tagName !== 'DL' && el.textContent.trim().length < 50) ||
-                        /^(By|Published|Updated|Written by|(\d+) min read|(\d+) claps)/i.test(el.textContent.trim());
-                    
-                    const hasContent = el.textContent.trim().length > 0;
-                    
-                    // Log skipped elements for debugging
-                    if (isMetadata || !hasContent) {
-                        console.log('Skipping element:', {
-                            type: el.tagName,
-                            class: el.className,
-                            text: el.textContent.substring(0, 50) + '...',
-                            reason: isMetadata ? 'metadata' : 'no content'
-                        });
-                    }
-                    
-                    // Include if it's not metadata and either a list or paragraph/header
-                    return !isMetadata && hasContent;
-                });
-
-                console.log(`Found ${contentElements.length} content elements to process`);
-
-                // Helper function to check if element is a list
-                const isList = (element) => {
-                    return ['UL', 'OL', 'DL'].includes(element.tagName);
-                };
-
-                // Group elements into chunks
-                const chunks = [];
-                let currentChunk = [];
-                let currentTokenCount = 0;
-                const MAX_TOKENS = 2000; // Larger chunks = fewer API calls = faster
-
-                for (let i = 0; i < contentElements.length; i++) {
-                    const element = contentElements[i];
-
-                    // If we hit a header, list, or the chunk is getting too big, start a new chunk
-                    if (isHeader(element) || isList(element) ||
-                        (currentChunk.length > 0 && 
-                         (currentTokenCount + estimateTokens(element.textContent) > MAX_TOKENS))) {
-                        
-                        if (currentChunk.length > 0) {
-                            chunks.push(currentChunk);
-                        }
-                        currentChunk = [element];
-                        currentTokenCount = estimateTokens(element.textContent);
-                    } else {
-                        currentChunk.push(element);
-                        currentTokenCount += estimateTokens(element.textContent);
-                    }
-                }
-                
-                // Add the last chunk if it exists
-                if (currentChunk.length > 0) {
-                    chunks.push(currentChunk);
-                }
-
-                console.log(`Grouped content into ${chunks.length} chunks`);
-
-                // Process each chunk
-                for (let chunk of chunks) {
-                    // Log full chunk details before processing
-                    console.log('Processing chunk:', {
-                        elements: chunk.length,
-                        types: chunk.map(el => el.tagName).join(', '),
-                        isHeaderOnly: chunk.length === 1 && isHeader(chunk[0])
+                // Get all paragraphs (skip headers, skip metadata)
+                const isHeader = (el) => /^H[1-6]$/i.test(el.tagName);
+                const paragraphs = Array.from(mainContent.querySelectorAll('p, ul, ol'))
+                    .filter(el => {
+                        if (el.textContent.trim().length < 50) return false;
+                        if (el.closest('.author, .meta, header, footer, .premium-box')) return false;
+                        if (/^(By|Published|Updated|Written by|\d+ min read)/i.test(el.textContent.trim())) return false;
+                        return true;
                     });
 
-                    // Skip chunks that only contain headers
-                    if (chunk.length === 1 && isHeader(chunk[0])) {
-                        console.log('Skipping header-only chunk');
-                        continue;
+                if (!paragraphs.length) { sendResponse({success: false, error: 'No content found'}); return; }
+
+                // Inject style once
+                if (!document.getElementById('pudding-simplified-style')) {
+                    const s = document.createElement('style');
+                    s.id = 'pudding-simplified-style';
+                    s.textContent = `.simplified-text{padding:0 5px;margin:10px 0;line-height:1.6}.original-text-tooltip{position:absolute;max-width:400px;background:rgba(0,0,0,.8);color:#fff;padding:10px;border-radius:5px;font-size:14px;z-index:10000;pointer-events:none}`;
+                    (document.head || document.documentElement).appendChild(s);
+                }
+
+                // Single API call with all text
+                const fullText = paragraphs.map(el => el.textContent.trim()).join('\n\n');
+                let simplified = '';
+                try {
+                    const stream = await promptSession.promptStreaming(fullText.slice(0, 6000));
+                    for await (const part of stream) simplified = part.trim();
+                } catch(e) {
+                    console.error('Simplify error:', e);
+                    sendResponse({success: false, error: e.message});
+                    return;
+                }
+
+                if (!simplified || simplified.startsWith('Error:')) {
+                    sendResponse({success: false, error: simplified || 'Empty response'});
+                    return;
+                }
+
+                // Replace paragraphs with simplified versions
+                const simplifiedParts = simplified.split('\n\n');
+                paragraphs.forEach((p, i) => {
+                    const text = simplifiedParts[i] || simplifiedParts[simplifiedParts.length - 1] || '';
+                    if (!text) return;
+                    const newEl = document.createElement('p');
+                    newEl.innerHTML = (typeof marked !== 'undefined' && marked.parse) ? marked.parse(text, {breaks:true,gfm:true}) : text;
+                    newEl.classList.add('simplified-text');
+                    newEl.setAttribute('data-original-html', p.outerHTML);
+                    newEl.setAttribute('data-original-text', p.textContent);
+                    p.parentNode.replaceChild(newEl, p);
+                    simplifiedElements.push(newEl);
+                    if (hoverEnabled) {
+                        newEl.addEventListener('mouseenter', showOriginalText);
+                        newEl.addEventListener('mouseleave', hideOriginalText);
                     }
-
-                    // Combine paragraph texts in the chunk
-                    const chunkText = chunk
-                        .filter(el => !isHeader(el))
-                        .map(el => el.textContent)
-                        .join('\n\n');
-
-                    try {
-                        console.log('Attempting to simplify chunk:', {
-                            fullText: chunkText,
-                            length: chunkText.length,
-                            paragraphs: chunkText.split('\n\n').length
-                        });
-                        
-                        // First attempt with original text
-                        // Log the exact prompt being sent
-                        console.log('Sending prompt to API:', {
-                            text: chunkText,
-                            length: chunkText.length,
-                            wordCount: chunkText.split(/\s+/).length
-                        });
-                        
-                        // Send the chunkText as the prompt with retries
-                        let simplifiedText = '';
-                        let attempts = 0;
-                        const maxAttempts = 2;
-                        
-                        while (attempts < maxAttempts) {
-                            try {
-                                logPrompt(chunkText);
-                                const stream = await promptSession.promptStreaming(chunkText);
-                                for await (const chunk of stream) {
-                                    simplifiedText = chunk.trim();
-                                }
-                                if (simplifiedText && simplifiedText.trim().length > 0) {
-                                    if (simplifiedText.startsWith('Error:')) {
-                                        console.error(simplifiedText);
-                                        simplifiedText = '';
-                                        attempts = maxAttempts; // stop retrying
-                                    }
-                                    break;
-                                }
-                                console.warn(`Empty response on attempt ${attempts + 1}`);
-                            } catch (error) {
-                                // Stop immediately if extension context is gone
-                                if (error.message && error.message.includes('Extension context invalidated')) {
-                                    console.warn('Extension was reloaded — stopping simplification.');
-                                    return;
-                                }
-                                console.warn(`API error on attempt ${attempts + 1}:`, error);
-                                if (attempts === maxAttempts - 1) throw error;
-                            }
-                            attempts++;
-                            await new Promise(resolve => setTimeout(resolve, 200));
-                        }
-
-                        if (!simplifiedText || simplifiedText.trim().length === 0) {
-                            console.warn('Failed to get valid response after all attempts - keeping original text');
-                            continue;
-                        }
-
-                        // Split simplified text back into paragraphs and ensure we have the right number
-                        const simplifiedParagraphs = simplifiedText.split('\n\n');
-                        const originalParagraphs = chunk.filter(el => !isHeader(el));
-
-                        console.log('Paragraph replacement:', {
-                            originalCount: originalParagraphs.length,
-                            simplifiedCount: simplifiedParagraphs.length,
-                            originalTexts: originalParagraphs.map(p => p.textContent.substring(0, 50) + '...'),
-                            simplifiedTexts: simplifiedParagraphs.map(p => p.substring(0, 50) + '...')
-                        });
-
-                        // Handle paragraph count mismatch
-                        if (simplifiedParagraphs.length !== originalParagraphs.length) {
-                            console.log(`Mismatch in paragraph counts: original=${originalParagraphs.length}, simplified=${simplifiedParagraphs.length}`);
-                            
-                            // If we got more simplified paragraphs than original, trim the excess
-                            if (simplifiedParagraphs.length > originalParagraphs.length) {
-                                simplifiedParagraphs.length = originalParagraphs.length;
-                            }
-                            // If we got fewer simplified paragraphs, remove extra original paragraphs
-                            if (simplifiedParagraphs.length < originalParagraphs.length) {
-                                // Remove the extra original paragraphs from the DOM
-                                for (let i = simplifiedParagraphs.length; i < originalParagraphs.length; i++) {
-                                    originalParagraphs[i].remove();
-                                }
-                                // Update the array to match simplified length
-                                originalParagraphs.length = simplifiedParagraphs.length;
-                            }
-                        }
-
-                        // Replace remaining original paragraphs with simplified versions
-                        originalParagraphs.forEach((p, index) => {
-                            let newElement;
-                            if (isList(p)) {
-                                // Create the same type of list
-                                newElement = document.createElement(p.tagName);
-                                
-                                // Get original list items for comparison
-                                const originalItems = Array.from(p.children);
-                                
-                                // Split the simplified text into list items
-                                const items = simplifiedParagraphs[index].split('\n').filter(item => item.trim());
-                                
-                                // Create new list items
-                                items.forEach((item, idx) => {
-                                    const li = document.createElement(p.tagName === 'DL' ? 'dt' : 'li');
-                                    li.textContent = item.replace(/^[•\-*]\s*/, ''); // Remove bullet points if present
-                                    
-                                    // Preserve any nested lists from original
-                                    if (originalItems[idx]) {
-                                        const nestedLists = originalItems[idx].querySelectorAll('ul, ol, dl');
-                                        nestedLists.forEach(nested => {
-                                            li.appendChild(nested.cloneNode(true));
-                                        });
-                                    }
-                                    
-                                    newElement.appendChild(li);
-                                });
-                            } else {
-                                // Handle regular paragraphs
-                                newElement = document.createElement('p');
-                                // Use marked to parse markdown, falling back to plain text if marked is not available
-                                newElement.innerHTML = (typeof marked !== 'undefined' && typeof marked.parse === 'function') ? 
-                                    marked.parse(simplifiedParagraphs[index], {
-                                        breaks: true,
-                                        gfm: true,
-                                        headerIds: false,
-                                        mangle: false
-                                    }) : 
-                                    simplifiedParagraphs[index];
-                            }
-                            
-                            // Add styles for simplified text
-                            const simplifiedStyles = document.createElement('style');
-                            simplifiedStyles.textContent = `
-                                .simplified-text {
-                                    padding-left: 5px;
-                                    padding-right: 5px;
-                                    margin: 10px 0;
-                                    line-height: 1.6;
-                                    font-weight: 400;
-                                }
-                                .original-text-tooltip {
-                                    position: absolute;
-                                    max-width: 400px;
-                                    background-color: rgba(0, 0, 0, 0.8);
-                                    color: white;
-                                    padding: 10px;
-                                    border-radius: 5px;
-                                    font-size: 14px;
-                                    line-height: 1.4;
-                                    z-index: 10000;
-                                    pointer-events: none;
-                                    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-                                }
-                                .simplified-text ul, .simplified-text ol {
-                                    margin-left: 20px;
-                                }
-                                .simplified-text code {
-                                    background: #f8f8f8;
-                                    padding: 2px 4px;
-                                    border-radius: 3px;
-                                }
-                                .simplified-text blockquote {
-                                    border-left: 2px solid #ddd;
-                                    margin-left: 0;
-                                    padding-left: 10px;
-                                    color: #666;
-                                }
-                            `;
-                            document.head.appendChild(simplifiedStyles);
-                            newElement.classList.add('simplified-text');
-                            // Store the original HTML content if it's not already stored
-                            if (!p.hasAttribute('data-original-html')) {
-                                newElement.setAttribute('data-original-html', p.outerHTML);
-                            } else {
-                                // Preserve the original HTML attribute
-                                newElement.setAttribute('data-original-html', p.getAttribute('data-original-html'));
-                            }
-                            // Keep original text for hover functionality
-                            newElement.setAttribute('data-original-text', p.textContent);
-                            p.parentNode.replaceChild(newElement, p);
-                            
-                            // Store reference to simplified elements
-                            simplifiedElements = simplifiedElements.filter(el => el !== p);
-                            simplifiedElements.push(newElement);
-
-                            // Add hover event listeners if enabled
-                            if (hoverEnabled) {
-                                newElement.addEventListener('mouseenter', showOriginalText);
-                                newElement.addEventListener('mouseleave', hideOriginalText);
-                            }
-                            
-                            console.log(`Replaced paragraph ${index + 1}/${originalParagraphs.length}:`, {
-                                original: p.textContent.substring(0, 50) + '...',
-                                simplified: newElement.textContent.substring(0, 50) + '...'
-                            });
-
-                            // Check if OpenDyslexic is enabled and apply it
-                            chrome.storage.sync.get('useOpenDyslexic', function(result) {
-                                if (result.useOpenDyslexic) {
-                                    applyOpenDyslexicFont();
-                                } else {
-                                    removeOpenDyslexicFont();
-                                }
-                            });
-                        });
-                        console.log('Successfully replaced paragraph with simplified version');
-                    } catch (error) {
-                            console.error('Error simplifying paragraph:', error, {
-                                text: chunkText.substring(0, 100) + '...'
-                            });
-                        }
-                    }
+                });
 
                     // Add visual feedback
                     const notification = document.createElement('div');
                     notification.textContent = 'Text simplified';
-                    notification.style.position = 'fixed';
-                    notification.style.top = '20px';
-                    notification.style.left = '50%';
-                    notification.style.transform = 'translateX(-50%)';
-                    notification.style.backgroundColor = '#3498db';
-                    notification.style.color = 'white';
-                    notification.style.padding = '10px 20px';
-                    notification.style.borderRadius = '5px';
-                    notification.style.zIndex = '10000';
+                    notification.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#3498db;color:white;padding:10px 20px;border-radius:5px;z-index:10000';
                     document.body.appendChild(notification);
                     setTimeout(() => notification.remove(), 3000);
                     

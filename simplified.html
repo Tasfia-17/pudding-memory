@@ -43,6 +43,9 @@
 
         .footer-note { text-align: center; font-size: 12px; color: #b0907a; margin-top: 40px; }
         .footer-note span { color: #F4C542; font-weight: 600; }
+        #score-banner { background: #fff8f0; border: 1px solid #f0e0d0; border-radius: 10px; padding: 14px 18px; margin-bottom: 28px; font-size: 13px; color: #8b5a3c; line-height: 1.7; display: none; }
+        #score-banner strong { color: #d4845c; }
+        .live-score { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 700; margin-left: 8px; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -57,6 +60,18 @@
     <div class="page-title">HydraDB Docs · Core Concepts</div>
     <h2 class="main-title">Understanding HydraDB</h2>
     <p class="subtitle">Pudding simplified this page and saved it to your HydraDB cognitive memory.</p>
+
+    <div id="score-banner"></div>
+
+    <div class="how-box">
+        <div class="how-title">🧠 How Pudding determined your difficulty scores</div>
+        <div class="how-grid">
+            <div class="how-item"><span>⏱️</span><div><strong>Pause duration</strong><br>Time spent without scrolling on a paragraph — longer pauses = higher difficulty</div></div>
+            <div class="how-item"><span>🔄</span><div><strong>Re-read count</strong><br>How many times your scroll position returned to the same paragraph</div></div>
+            <div class="how-item"><span>📏</span><div><strong>Sentence complexity</strong><br>Average word length, sentence length, and jargon density scored 0–100</div></div>
+            <div class="how-item"><span>🗂️</span><div><strong>HydraDB history</strong><br>Whether this concept appeared in past sessions with a high struggle score</div></div>
+        </div>
+    </div>
 
     <div class="section">
         <h3>🚀 What is HydraDB?</h3>
@@ -141,5 +156,57 @@
 
     <p class="footer-note">Simplified by 🍮 Pudding · Saved to <span>HydraDB</span> cognitive graph · Concepts auto-highlighted on your next visit</p>
 </div>
+<script>
+// Read real complexity scores from chrome.storage and update tags + show banner
+if (typeof chrome !== 'undefined' && chrome.storage) {
+    chrome.storage.local.get(['puddingSectionScores', 'puddingScoresUrl'], function(result) {
+        const scores = result.puddingSectionScores;
+        if (!scores) return;
+
+        // Compute overall stats
+        const vals = Object.values(scores).map(v => v.score);
+        const avg = Math.round(vals.reduce((a,b) => a+b, 0) / vals.length);
+        const hardCount = vals.filter(s => s >= 60).length;
+        const easyCount = vals.filter(s => s < 60).length;
+
+        // Show banner
+        const banner = document.getElementById('score-banner');
+        banner.style.display = 'block';
+        banner.innerHTML = `
+            <strong>📊 Live complexity data from your reading session</strong><br>
+            Pudding scored <strong>${vals.length} paragraphs</strong> on this page.
+            Average difficulty: <strong>${avg}/100</strong> &nbsp;·&nbsp;
+            <span style="color:#c0392b">⚠️ ${hardCount} hard sections</span> &nbsp;·&nbsp;
+            <span style="color:#27ae60">✅ ${easyCount} easy sections</span><br>
+            <span style="font-size:11px;color:#b0907a">Scores based on: pause duration · re-read count · sentence complexity · jargon density · HydraDB history</span>`;
+
+        // Update each section tag with live score
+        document.querySelectorAll('.section').forEach(section => {
+            const heading = section.querySelector('h3')?.textContent || '';
+            const tag = section.querySelector('.tag');
+            if (!tag) return;
+
+            // Find best matching score key
+            const keywords = heading.toLowerCase().replace(/[^a-z ]/g,'').split(' ').filter(w => w.length > 3);
+            let bestScore = null;
+            Object.entries(scores).forEach(([key, val]) => {
+                const kl = key.toLowerCase();
+                if (keywords.some(kw => kl.includes(kw))) {
+                    if (!bestScore || val.score > bestScore.score) bestScore = val;
+                }
+            });
+
+            if (bestScore) {
+                const hard = bestScore.score >= 60;
+                tag.className = 'tag ' + (hard ? 'hard' : 'easy');
+                tag.innerHTML = hard
+                    ? `⚠️ Struggled here &nbsp;<span class="live-score" style="background:#fde8e8;color:#c0392b;border:1px solid #e74c3c44">score: ${bestScore.score}</span>`
+                    : `✅ You got this &nbsp;<span class="live-score" style="background:#e8fdf0;color:#27ae60;border:1px solid #2ecc7144">score: ${bestScore.score}</span>`;
+                tag.title = `Pudding measured: complexity score ${bestScore.score}/100 on "${bestScore.text}..."`;
+            }
+        });
+    });
+}
+</script>
 </body>
 </html>

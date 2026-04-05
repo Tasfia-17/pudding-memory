@@ -260,6 +260,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     (document.head || document.documentElement).appendChild(s);
                 }
 
+                // Score and save paragraph complexity to storage before simplifying
+                const scoreMap = {};
+                paragraphs.forEach(p => {
+                    if (window.complexityAnalyzer) {
+                        const score = window.complexityAnalyzer.analyzeParagraph(p.textContent);
+                        const key = p.textContent.slice(0, 60).trim();
+                        scoreMap[key] = { score, text: p.textContent.slice(0, 80) };
+                    }
+                });
+                if (Object.keys(scoreMap).length) {
+                    chrome.storage.local.set({ puddingSectionScores: scoreMap, puddingScoresUrl: location.href });
+                }
+
                 // Single API call with all text
                 const fullText = paragraphs.map(el => el.textContent.trim()).join('\n\n');
                 let simplified = '';

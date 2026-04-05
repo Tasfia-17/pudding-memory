@@ -82,6 +82,7 @@ class ComplexityAnalyzer {
 
     highlightComplexity(element) {
         const paragraphs = element.querySelectorAll('p, li');
+        const sectionScores = {};
         
         paragraphs.forEach(p => {
             const text = p.textContent;
@@ -90,6 +91,14 @@ class ComplexityAnalyzer {
             const score = this.analyzeParagraph(text);
             const level = this.getComplexityLevel(score);
             const color = this.getComplexityColor(score);
+
+            // Track highest score per heading section
+            const heading = p.closest('section, article, div')?.querySelector('h1,h2,h3,h4')?.textContent?.trim()
+                || p.previousElementSibling?.tagName?.match(/^H\d$/) && p.previousElementSibling.textContent.trim()
+                || 'General';
+            if (!sectionScores[heading] || score > sectionScores[heading].score) {
+                sectionScores[heading] = { score, text: text.slice(0, 80) };
+            }
             
             // Add complexity indicator
             if (score > 40) {
@@ -113,14 +122,17 @@ class ComplexityAnalyzer {
                 p.style.position = 'relative';
                 p.insertBefore(indicator, p.firstChild);
                 
-                // Add click to simplify
                 indicator.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.simplifyParagraph(p);
                 });
             }
         });
-    }
+
+        // Save real scores to chrome.storage for simplified.html to read
+        if (Object.keys(sectionScores).length) {
+            chrome.storage.local.set({ puddingSectionScores: sectionScores, puddingScoresUrl: location.href });
+        }
 
     simplifyParagraph(paragraph) {
         // Trigger simplification for this specific paragraph

@@ -191,12 +191,17 @@ simplifyButton.addEventListener('click', function() {
                         simplifyButtonText.textContent = 'Saving to Brain...';
 
                         safeSend(tabs[0].id, { action: 'getSelectedText' }, function(sel) {
-                            const text = (sel && sel.text) || document.title || '';
+                            const text = (sel && sel.text) || tabs[0].title || '';
                             const level = document.querySelector('.simplification-button.selected')?.getAttribute('data-level') || '3';
                             const difficulty = parseInt(level) >= 4 ? 'high' : 'low';
-                            syncToCloud(text, difficulty, 'simplify').then(() => {
-                                simplifyButtonText.textContent = 'Simplified & Saved!';
+                            // Also send page body text for richer concept extraction
+                            safeSend(tabs[0].id, { action: 'getPageText' }, function(page) {
+                                const fullText = (page && page.text) ? page.text.slice(0, 2000) : text;
+                                syncToCloud(fullText, difficulty, 'simplify').then(() => {
+                                    simplifyButtonText.textContent = 'Simplified & Saved!';
+                                });
                             });
+                        });
                         });
                     } else {
                         // Handle error

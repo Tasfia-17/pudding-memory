@@ -982,6 +982,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+// ── Utility message handlers ──────────────────────────────────────────────────
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'getSelectedText') {
+        sendResponse({ text: window.getSelection()?.toString() || '' });
+        return true;
+    }
+    if (request.action === 'getPageText') {
+        const el = document.querySelector('main, article, .content, #content') || document.body;
+        sendResponse({ text: el.innerText.slice(0, 2000) });
+        return true;
+    }
+});
+
 // ── Predictive Highlighter ────────────────────────────────────────────────────
 // On page load, extract keywords and highlight concepts the user has struggled with.
 

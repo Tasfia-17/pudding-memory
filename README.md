@@ -16,7 +16,7 @@
 
 ## The Problem
 
-Reading online content is challenging for millions of people. Complex language, dense paragraphs, and constant distractions create barriers to understanding — and every session starts from zero.
+Reading online content is challenging for millions of people. Complex language, dense paragraphs, and constant distractions create barriers to understanding. Every session starts from zero.
 
 <div align="center">
 <img src="images/problem-diagram.svg" width="100%" alt="The Problem">
@@ -28,7 +28,7 @@ Reading online content is challenging for millions of people. Complex language, 
 
 **6.4 million people with ADHD** lose focus amid distractions and dense text.
 
-**Millions more** face information overload from complex jargon — and no tool remembers what they've already struggled with.
+**Millions more** face information overload from complex jargon. No tool remembers what they have already struggled with.
 
 ### The Gap No Tool Fills
 
@@ -37,13 +37,13 @@ Reading online content is challenging for millions of people. Complex language, 
 - **Cloud summarizers**: Privacy concerns, forgets you every session
 - **Reader modes**: Basic formatting, zero intelligence
 
-**The real gap**: No tool learns *which specific concepts* you struggle with and proactively helps you — across sessions, across devices, before you even ask.
+**The real gap**: No tool learns *which specific concepts* you struggle with and proactively helps you across sessions, across devices, before you even ask.
 
 ---
 
 ## 🧠 HydraDB — Long-Term Cognitive Memory
 
-This is the core of what makes Pudding different. Every other tool forgets you when you close the tab. **Pudding remembers.**
+> **HydraDB is the core of Pudding.** Every other tool forgets you when you close the tab. Pudding remembers — forever.
 
 <div align="center">
 <img src="images/hydradb-architecture.svg" width="100%" alt="HydraDB Architecture">
@@ -51,7 +51,7 @@ This is the core of what makes Pudding different. Every other tool forgets you w
 
 ### What is the Cognitive Graph?
 
-When you simplify text, Pudding doesn't just rewrite it — it **records the interaction** in HydraDB as a structured knowledge graph:
+When you simplify text, Pudding doesn't just rewrite it. It **records the interaction** in HydraDB as a structured knowledge graph:
 
 ```
 USER  ──STRUGGLED_WITH──▶  "Quantum Entanglement"  (score: 85, red)
@@ -66,7 +66,7 @@ Every concept you encounter becomes a **node**. Every simplification becomes a *
 <img src="images/hydradb-memory-flow.svg" width="100%" alt="HydraDB Memory Flow">
 </div>
 
-**Session 1** — You read about Quantum Entanglement on Wikipedia. You click Simplify. HydraDB stores: `STRUGGLED_WITH → Quantum Entanglement, score: 85`.
+**Session 1** — You read about Quantum Entanglement on Wikipedia. You click Simplify. HydraDB stores: `STRUGGLED_WITH -> Quantum Entanglement, score: 85`.
 
 **Session 2** — You open a Reddit thread about quantum physics. Before you click anything, Pudding queries HydraDB, finds the match, and **auto-highlights the concept with a red underline** and tooltip: *"You struggled with this before. Click to simplify."*
 
@@ -84,7 +84,7 @@ This directly fulfils the hackathon judging criterion: **"Knows about user befor
 
 ### Concept Extraction Logic
 
-The backend doesn't just store raw text — it extracts meaningful concepts:
+The backend doesn't just store raw text. It extracts meaningful concepts:
 
 ```python
 COMPLEX_KEYWORDS = {
@@ -97,7 +97,7 @@ COMPLEX_KEYWORDS = {
 When you simplify a paragraph, the backend:
 1. Scans for known complex keywords
 2. Extracts the first capitalised noun as the main topic
-3. Saves `USER → STRUGGLED_WITH/MASTERED → Concept` with a difficulty score
+3. Saves `USER -> STRUGGLED_WITH/MASTERED -> Concept` with a difficulty score
 4. Uses rolling averages so one bad day doesn't permanently mark a concept red
 
 ### The Brain Map
@@ -108,7 +108,7 @@ When you simplify a paragraph, the backend:
 
 Click **"View My Brain Map"** in the popup to open an interactive Vis.js graph of everything HydraDB knows about you:
 
-- **Red nodes** = concepts you keep struggling with (score ≥ 60)
+- **Red nodes** = concepts you keep struggling with (score >= 60)
 - **Green nodes** = concepts you've mastered (score < 60)
 - **Node size** scales with difficulty — bigger = harder
 - **Edges** connect concepts in the same difficulty band
@@ -118,7 +118,7 @@ Click **"View My Brain Map"** in the popup to open an interactive Vis.js graph o
 
 ## The Solution: Pudding
 
-Pudding is a **Cognitive Adaptation Engine** powered by Gemini Nano (offline AI) and HydraDB (long-term memory). It learns your reading patterns, simplifies content in real-time, and remembers your struggles across every session.
+Pudding is a **Cognitive Adaptation Engine** powered by Gemini Nano (offline AI) and **HydraDB** (long-term memory). It learns your reading patterns, simplifies content in real-time, and remembers your struggles across every session.
 
 <div align="center">
 <img src="images/solution-diagram.svg" width="100%" alt="The Solution">
@@ -145,7 +145,7 @@ Pudding is a **Cognitive Adaptation Engine** powered by Gemini Nano (offline AI)
 <td width="50%">
 
 **Pudding + HydraDB**
-- ✅ Remembers your struggles forever
+- ✅ Remembers your struggles forever via HydraDB
 - ✅ Adapts to your cognitive style
 - ✅ 100% offline AI (Gemini Nano)
 - ✅ Gets smarter every session
@@ -168,18 +168,18 @@ Pudding is a **Cognitive Adaptation Engine** powered by Gemini Nano (offline AI)
 ```
 Chrome Extension (JS)
     │
-    ├── Gemini Nano          ← offline AI, simplifies text
-    ├── Cognitive Tracker    ← scroll speed, pauses, rereads
-    ├── Complexity Analyzer  ← scores 0–100 per paragraph
+    ├── Gemini Nano            ← offline AI, simplifies text
+    ├── Cognitive Tracker      ← scroll speed, pauses, rereads
+    ├── Complexity Analyzer    ← scores 0-100 per paragraph
     ├── Predictive Highlighter ← queries HydraDB on page load
-    └── Brain Map Viewer     ← Vis.js graph from HydraDB
+    └── Brain Map Viewer       ← Vis.js graph from HydraDB
          │
          ▼
 FastAPI Backend (Python)
     │
-    ├── /api/learn           ← concept extraction + relation builder
-    ├── /api/graph           ← full cognitive graph
-    └── /api/check-memory    ← predictive lookup
+    ├── /api/learn             ← concept extraction + relation builder
+    ├── /api/graph             ← full cognitive graph
+    └── /api/check-memory      ← predictive lookup
          │
          ▼
 HydraDB (ChromaDB persistent store)
@@ -194,8 +194,8 @@ HydraDB (ChromaDB persistent store)
 <img src="images/privacy-architecture.svg" width="600" alt="Privacy Architecture">
 </div>
 
-- Gemini Nano runs 100% on-device — no text leaves your machine
-- HydraDB runs locally — your cognitive graph stays yours
+- Gemini Nano runs 100% on-device. No text leaves your machine.
+- HydraDB runs locally. Your cognitive graph stays yours.
 - No external API calls for AI processing
 - Zero analytics or tracking
 
@@ -205,7 +205,7 @@ HydraDB (ChromaDB persistent store)
 
 ### 1. Predictive Simplification (HydraDB-powered)
 
-On every page load, Pudding queries HydraDB for concepts you've struggled with before and highlights them automatically — before you click anything.
+On every page load, Pudding queries **HydraDB** for concepts you've struggled with before and highlights them automatically, before you click anything.
 
 ### 2. Cognitive Adaptation Engine
 
@@ -221,7 +221,7 @@ Tracks scroll speed, pauses, and rereads. Auto-adjusts simplification level. All
 <img src="images/complexity-heatmap.svg" width="700" alt="Complexity Heatmap">
 </div>
 
-Color-coded difficulty scores (0–100) across the page. Click any hard section to simplify just that part.
+Color-coded difficulty scores (0-100) across the page. Click any hard section to simplify just that part.
 
 ### 4. Smart Content Restructuring
 
@@ -273,7 +273,7 @@ Powered by **Lingo.dev** — 10 languages, RTL support, instant switching, zero 
 
 | Requirement | Details |
 |------------|---------|
-| **Browser** | Chrome Dev/Canary ≥ 128.0.6545.0 |
+| **Browser** | Chrome Dev/Canary >= 128.0.6545.0 |
 | **Python** | 3.11+ |
 | **Storage** | 22 GB (for Gemini Nano model) |
 
@@ -288,7 +288,7 @@ chrome://flags/#prompt-api-for-gemini-nano          → Enabled
 # Relaunch Chrome
 ```
 
-### Step 2: Start the Backend
+### Step 2: Start the HydraDB Backend
 
 ```bash
 cd backend
@@ -318,7 +318,7 @@ uvicorn server:app --reload --port 8000
 | **Cognitive Load** | 37% reduction |
 | **Reading Speed** | 45% faster |
 | **Comprehension** | 52% better |
-| **Memory Retention** | Persistent across sessions |
+| **Memory Retention** | Persistent across sessions via HydraDB |
 
 ---
 
@@ -328,8 +328,8 @@ uvicorn server:app --reload --port 8000
 <tr>
 <td width="25%" align="center"><h3>ADHD</h3>Focus mode, distraction suppression, structured content</td>
 <td width="25%" align="center"><h3>Dyslexia</h3>OpenDyslexic font, visual organisation, reading flow</td>
-<td width="25%" align="center"><h3>Students</h3>Complexity mapping, concept memory, study efficiency</td>
-<td width="25%" align="center"><h3>Professionals</h3>Fast scanning, key point extraction, cross-session memory</td>
+<td width="25%" align="center"><h3>Students</h3>Complexity mapping, HydraDB concept memory, study efficiency</td>
+<td width="25%" align="center"><h3>Professionals</h3>Fast scanning, key point extraction, cross-session HydraDB memory</td>
 </tr>
 </table>
 
@@ -340,7 +340,7 @@ uvicorn server:app --reload --port 8000
 - [ ] 🔐 Auth — personal HydraDB cloud profiles
 - [ ] 📱 Cross-device sync via HydraDB cloud
 - [ ] 🎧 Voice layer with synchronised highlighting
-- [ ] 📚 Study Mode — flashcards generated from your struggle graph
+- [ ] 📚 Study Mode — flashcards generated from your HydraDB struggle graph
 - [ ] 🌙 Time-based adaptation (late-night simplification)
 - [ ] 👥 Classroom Mode for teachers
 
@@ -360,7 +360,7 @@ uvicorn server:app --reload --port 8000
 
 ### Built for the HydraDB Hackathon
 
-*Making the web remember you — so you can focus on understanding it.*
+*Making the web remember you, so you can focus on understanding it.*
 
 **[Star on GitHub](https://github.com/Tasfia-17/puddingextention)** • **[Report Issues](https://github.com/Tasfia-17/puddingextention/issues)**
 

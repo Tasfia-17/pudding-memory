@@ -102,7 +102,7 @@ async function initAICapabilities() {
             let data;
             try {
                 const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${key}`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -117,7 +117,15 @@ async function initAICapabilities() {
                 yield '';
                 return;
             }
-            if (data.error) { console.error('Gemini API error:', data.error.message); yield ''; return; }
+            if (data.error) {
+                const msg = data.error.message || '';
+                console.error('Gemini API error:', msg);
+                if (msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED')) {
+                    yield 'Error: Gemini API quota exceeded. Please wait or upgrade your plan.';
+                    return;
+                }
+                yield ''; return;
+            }
             yield data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
         }
     };
@@ -375,6 +383,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                                     simplifiedText = chunk.trim();
                                 }
                                 if (simplifiedText && simplifiedText.trim().length > 0) {
+                                    if (simplifiedText.startsWith('Error:')) {
+                                        console.error(simplifiedText);
+                                        simplifiedText = '';
+                                        attempts = maxAttempts; // stop retrying
+                                    }
                                     break;
                                 }
                                 console.warn(`Empty response on attempt ${attempts + 1}`);

@@ -1,0 +1,80 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="archBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fcb69f;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="400" fill="url(#archBg)"/>
+  
+  <!-- Title -->
+  <text x="300" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c1810" text-anchor="middle">
+    How Pudding Works
+  </text>
+  
+  <!-- Layer 1: Web Page -->
+  <rect x="150" y="60" width="300" height="50" rx="8" fill="#fff" stroke="#d4845c" stroke-width="2"/>
+  <text x="300" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#2c1810" text-anchor="middle">
+    Web Page Content
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 300 110 L 300 140" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="300,140 295,130 305,130" fill="#8b5a3c"/>
+  
+  <!-- Layer 2: Pudding Extension -->
+  <rect x="100" y="140" width="400" height="70" rx="8" fill="rgba(255,255,255,0.9)" stroke="#d4845c" stroke-width="3"/>
+  <text x="300" y="165" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#d4845c" text-anchor="middle">
+    Pudding Extension
+  </text>
+  <text x="120" y="190" font-family="Arial, sans-serif" font-size="11" fill="#2c1810">
+    Cognitive Tracker
+  </text>
+  <text x="250" y="190" font-family="Arial, sans-serif" font-size="11" fill="#2c1810">
+    Analyzer
+  </text>
+  <text x="350" y="190" font-family="Arial, sans-serif" font-size="11" fill="#2c1810">
+    Restructurer
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 300 210 L 300 240" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="300,240 295,230 305,230" fill="#8b5a3c"/>
+  
+  <!-- Layer 3: Gemini Nano -->
+  <rect x="150" y="240" width="300" height="50" rx="8" fill="#F4C542" stroke="#d4845c" stroke-width="2"/>
+  <text x="300" y="270" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#2c1810" text-anchor="middle">
+    Gemini Nano (Offline AI)
+  </text>
+  
+  <!-- Arrow -->
+  <path d="M 300 290 L 300 320" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="300,320 295,310 305,310" fill="#8b5a3c"/>
+  
+  <!-- Layer 4: Enhanced Content -->
+  <rect x="150" y="320" width="300" height="50" rx="8" fill="#51cf66" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="300" y="350" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#fff" text-anchor="middle">
+    Enhanced, Easy-to-Read Content
+  </text>
+  
+  <!-- Side notes -->
+  <g transform="translate(20, 140)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="10" fill="#8b5a3c">
+      Tracks
+    </text>
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="10" fill="#8b5a3c">
+      behavior
+    </text>
+  </g>
+  
+  <g transform="translate(510, 240)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="10" fill="#8b5a3c">
+      100%
+    </text>
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="10" fill="#8b5a3c">
+      Private
+    </text>
+  </g>
+</svg>

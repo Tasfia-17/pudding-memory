@@ -1,0 +1,168 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="solutionBg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#51cf66;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#37b24d;stop-opacity:0.3" />
+    </linearGradient>
+    <linearGradient id="puddingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE5B4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4C542;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="caramelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C17817;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5A00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f0fff4"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2b8a3e" text-anchor="middle">
+    The Solution: Pudding
+  </text>
+  
+  <!-- Complex Content -->
+  <rect x="50" y="80" width="180" height="80" rx="10" fill="#ff6b6b" opacity="0.2" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="140" y="115" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#c92a2a" text-anchor="middle">
+    Complex Content
+  </text>
+  <text x="140" y="140" font-family="Arial, sans-serif" font-size="11" fill="#495057" text-anchor="middle">
+    Hard to read
+  </text>
+  
+  <!-- Arrow to Pudding -->
+  <path d="M 230 120 L 280 120" stroke="#868e96" stroke-width="3" fill="none"/>
+  <polygon points="280,120 270,115 270,125" fill="#868e96"/>
+  
+  <!-- Pudding Engine -->
+  <g transform="translate(280, 60)">
+    <rect x="0" y="0" width="240" height="120" rx="15" fill="url(#solutionBg)" stroke="#51cf66" stroke-width="3"/>
+    
+    <!-- Pudding logo -->
+    <g transform="translate(40, 30)">
+      <ellipse cx="0" cy="45" rx="20" ry="4" fill="#000000" opacity="0.15"/>
+      <path d="M -15 30 Q -15 10 0 7 Q 15 10 15 30 L 15 33 Q 15 38 0 38 Q -15 38 -15 33 Z" 
+            fill="url(#puddingGrad)" stroke="#D4A574" stroke-width="1.5"/>
+      <ellipse cx="0" cy="7" rx="15" ry="6" fill="url(#caramelGrad)"/>
+      <circle cx="-5" cy="17" r="1.5" fill="#8B5A00"/>
+      <circle cx="5" cy="17" r="1.5" fill="#8B5A00"/>
+      <path d="M -3 23 Q 0 26 3 23" fill="none" stroke="#8B5A00" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+    
+    <text x="120" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2b8a3e" text-anchor="middle">
+      Pudding Engine
+    </text>
+    <text x="120" y="70" font-family="Arial, sans-serif" font-size="11" fill="#2f9e44" text-anchor="middle">
+      AI-Powered • Offline • Adaptive
+    </text>
+    <text x="120" y="90" font-family="Arial, sans-serif" font-size="10" fill="#495057" text-anchor="middle">
+      Learns your reading style
+    </text>
+  </g>
+  
+  <!-- Arrow down -->
+  <path d="M 400 180 L 400 230" stroke="#868e96" stroke-width="3" fill="none"/>
+  <polygon points="400,230 395,220 405,220" fill="#868e96"/>
+  
+  <!-- Features -->
+  <text x="400" y="260" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#2b8a3e" text-anchor="middle">
+    4 Core Features
+  </text>
+  
+  <!-- Feature 1: Cognitive Tracker -->
+  <g transform="translate(50, 280)">
+    <rect x="0" y="0" width="160" height="110" rx="10" fill="#fff" stroke="#51cf66" stroke-width="2"/>
+    <circle cx="80" cy="25" r="18" fill="#51cf66" opacity="0.2"/>
+    <text x="80" y="33" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🧠</text>
+    <text x="80" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#2b8a3e" text-anchor="middle">
+      Cognitive Tracker
+    </text>
+    <text x="10" y="73" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Monitors reading
+    </text>
+    <text x="10" y="87" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Learns patterns
+    </text>
+    <text x="10" y="101" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Auto-adapts
+    </text>
+  </g>
+  
+  <!-- Feature 2: Focus Mode -->
+  <g transform="translate(230, 280)">
+    <rect x="0" y="0" width="160" height="110" rx="10" fill="#fff" stroke="#51cf66" stroke-width="2"/>
+    <circle cx="80" cy="25" r="18" fill="#51cf66" opacity="0.2"/>
+    <text x="80" y="33" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🎯</text>
+    <text x="80" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#2b8a3e" text-anchor="middle">
+      Focus Mode
+    </text>
+    <text x="10" y="73" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Hides distractions
+    </text>
+    <text x="10" y="87" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Spotlights text
+    </text>
+    <text x="10" y="101" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Keyboard nav
+    </text>
+  </g>
+  
+  <!-- Feature 3: Complexity Map -->
+  <g transform="translate(410, 280)">
+    <rect x="0" y="0" width="160" height="110" rx="10" fill="#fff" stroke="#51cf66" stroke-width="2"/>
+    <circle cx="80" cy="25" r="18" fill="#51cf66" opacity="0.2"/>
+    <text x="80" y="33" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">📊</text>
+    <text x="80" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#2b8a3e" text-anchor="middle">
+      Complexity Map
+    </text>
+    <text x="10" y="73" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Shows difficulty
+    </text>
+    <text x="10" y="87" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Color-coded
+    </text>
+    <text x="10" y="101" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Click to simplify
+    </text>
+  </g>
+  
+  <!-- Feature 4: Smart Structure -->
+  <g transform="translate(590, 280)">
+    <rect x="0" y="0" width="160" height="110" rx="10" fill="#fff" stroke="#51cf66" stroke-width="2"/>
+    <circle cx="80" cy="25" r="18" fill="#51cf66" opacity="0.2"/>
+    <text x="80" y="33" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🧩</text>
+    <text x="80" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#2b8a3e" text-anchor="middle">
+      Smart Structure
+    </text>
+    <text x="10" y="73" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Bullet lists
+    </text>
+    <text x="10" y="87" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Key highlights
+    </text>
+    <text x="10" y="101" font-family="Arial, sans-serif" font-size="9" fill="#495057">
+      • Summaries
+    </text>
+  </g>
+  
+  <!-- Arrow down -->
+  <path d="M 400 390 L 400 440" stroke="#868e96" stroke-width="3" fill="none"/>
+  <polygon points="400,440 395,430 405,430" fill="#868e96"/>
+  
+  <!-- Result -->
+  <rect x="200" y="440" width="400" height="120" rx="15" fill="#51cf66" opacity="0.9"/>
+  <text x="400" y="475" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">
+    Result: Easy, Personalized Reading
+  </text>
+  <text x="400" y="505" font-family="Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle">
+    ↓ 37% less cognitive load
+  </text>
+  <text x="400" y="525" font-family="Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle">
+    ↑ 45% faster reading
+  </text>
+  <text x="400" y="545" font-family="Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle">
+    ↑ 52% better comprehension
+  </text>
+</svg>

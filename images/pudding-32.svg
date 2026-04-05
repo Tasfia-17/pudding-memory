@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="puddingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE5B4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4C542;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="caramelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C17817;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5A00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M 35 95 Q 35 50 64 45 Q 93 50 93 95 L 93 100 Q 93 110 64 110 Q 35 110 35 100 Z" 
+        fill="url(#puddingGradient)" stroke="#D4A574" stroke-width="2"/>
+  <ellipse cx="64" cy="45" rx="29" ry="12" fill="url(#caramelGradient)"/>
+  <circle cx="52" cy="65" r="3" fill="#8B5A00"/>
+  <circle cx="76" cy="65" r="3" fill="#8B5A00"/>
+  <path d="M 55 75 Q 64 80 73 75" fill="none" stroke="#8B5A00" stroke-width="2" stroke-linecap="round"/>
+</svg>

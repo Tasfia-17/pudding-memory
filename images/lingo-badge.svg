@@ -1,0 +1,31 @@
+<svg width="400" height="120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8E53;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="120" rx="10" fill="#f8f9fa"/>
+  
+  <!-- Accent bar -->
+  <rect width="8" height="120" rx="10" fill="url(#grad1)"/>
+  
+  <!-- Globe icon -->
+  <circle cx="50" cy="60" r="20" fill="url(#grad1)" opacity="0.2"/>
+  <circle cx="50" cy="60" r="15" fill="none" stroke="url(#grad1)" stroke-width="2"/>
+  <ellipse cx="50" cy="60" rx="8" ry="15" fill="none" stroke="url(#grad1)" stroke-width="2"/>
+  <line x1="35" y1="60" x2="65" y2="60" stroke="url(#grad1)" stroke-width="2"/>
+  
+  <!-- Text -->
+  <text x="85" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    Powered by Lingo.dev
+  </text>
+  <text x="85" y="70" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d">
+    10 Languages • 5B+ People
+  </text>
+  <text x="85" y="92" font-family="Arial, sans-serif" font-size="12" fill="#95a5a6">
+    Multilingual Hackathon #2
+  </text>
+</svg>

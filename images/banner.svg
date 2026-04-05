@@ -1,0 +1,82 @@
+<svg width="1200" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fcb69f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="puddingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE5B4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4C542;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="caramelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C17817;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5A00;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="50" r="30" fill="#FFE5B4" opacity="0.3"/>
+  <circle cx="1100" cy="250" r="40" fill="#F4C542" opacity="0.3"/>
+  <circle cx="200" cy="280" r="20" fill="#D4A574" opacity="0.3"/>
+  <circle cx="1000" cy="30" r="25" fill="#FFE5B4" opacity="0.3"/>
+  
+  <!-- Pudding Logo -->
+  <g transform="translate(150, 80)">
+    <ellipse cx="0" cy="80" rx="35" ry="6" fill="#000000" opacity="0.15"/>
+    <path d="M -25 60 Q -25 20 0 15 Q 25 20 25 60 L 25 65 Q 25 75 0 75 Q -25 75 -25 65 Z" 
+          fill="url(#puddingGradient)" stroke="#D4A574" stroke-width="2"/>
+    <ellipse cx="0" cy="15" rx="25" ry="10" fill="url(#caramelGradient)"/>
+    <circle cx="-10" cy="30" r="2.5" fill="#8B5A00"/>
+    <circle cx="10" cy="30" r="2.5" fill="#8B5A00"/>
+    <path d="M -7 40 Q 0 45 7 40" fill="none" stroke="#8B5A00" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="250" y="140" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#2c1810">
+    Pudding
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="250" y="180" font-family="Arial, sans-serif" font-size="28" fill="#8b5a3c">
+    Smooth, Delightful Web Accessibility
+  </text>
+  
+  <!-- Features -->
+  <g transform="translate(250, 210)">
+    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
+    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
+      🧠 AI-Powered
+    </text>
+  </g>
+  
+  <g transform="translate(450, 210)">
+    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
+    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
+      🔒 100% Offline
+    </text>
+  </g>
+  
+  <g transform="translate(650, 210)">
+    <rect x="0" y="0" width="180" height="35" rx="17.5" fill="rgba(255,255,255,0.5)" stroke="#d4845c" stroke-width="2"/>
+    <text x="90" y="23" font-family="Arial, sans-serif" font-size="16" fill="#2c1810" text-anchor="middle" font-weight="600">
+      ♿ Accessible
+    </text>
+  </g>
+  
+  <!-- Decorative pudding on right -->
+  <g transform="translate(1050, 100)">
+    <ellipse cx="0" cy="100" rx="45" ry="8" fill="#000000" opacity="0.15"/>
+    <path d="M -35 80 Q -35 30 0 25 Q 35 30 35 80 L 35 85 Q 35 95 0 95 Q -35 95 -35 85 Z" 
+          fill="url(#puddingGradient)" stroke="#D4A574" stroke-width="2"/>
+    <ellipse cx="0" cy="25" rx="35" ry="12" fill="url(#caramelGradient)"/>
+    <circle cx="-12" cy="45" r="3" fill="#8B5A00"/>
+    <circle cx="12" cy="45" r="3" fill="#8B5A00"/>
+    <path d="M -8 55 Q 0 60 8 55" fill="none" stroke="#8B5A00" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="-20" cy="50" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+    <ellipse cx="20" cy="50" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+  </g>
+</svg>

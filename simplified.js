@@ -37,7 +37,7 @@ if (typeof chrome !== 'undefined' && chrome.storage) {
                 var hard = bestScore.score >= 60;
                 tag.className = 'tag ' + (hard ? 'hard' : 'easy');
                 tag.innerHTML = hard
-                    ? '⚠️ Struggled here &nbsp;<span class="live-score" style="background:#fde8e8;color:#c0392b;border:1px solid #e74c3c44">score: ' + bestScore.score + '</span>'
+                    ? '🔴 Hard &nbsp;<span class="live-score" style="background:#fde8e8;color:#c0392b;border:1px solid #e74c3c44">score: ' + bestScore.score + '</span>'
                     : '✅ You got this &nbsp;<span class="live-score" style="background:#e8fdf0;color:#27ae60;border:1px solid #2ecc7144">score: ' + bestScore.score + '</span>';
                 tag.title = 'Pudding measured: complexity score ' + bestScore.score + '/100';
             }

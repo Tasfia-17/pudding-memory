@@ -47,8 +47,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>MindMeld Settings</h1>
+        <h1>Pudding Settings</h1>
+
+        <h2>AI Configuration</h2>
+        <div class="form-group">
+            <label for="geminiApiKey">Gemini API Key</label>
+            <input type="password" id="geminiApiKey" placeholder="AIzaSy...">
+            <small>Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></small>
+        </div>
+
         <h2>Display Settings</h2>
+        <div class="form-group">
+            <label><input type="checkbox" id="useOpenDyslexic"> Use OpenDyslexic font</label>
+        </div>
+
+        <div id="status" class="status"></div>
     </div>
     <script src="options.js"></script>
 </body>

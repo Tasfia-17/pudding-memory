@@ -12,10 +12,23 @@ document.getElementById('useOpenDyslexic').addEventListener('change', function(e
     });
 });
 
+// Save Gemini API key
+document.getElementById('geminiApiKey')?.addEventListener('change', function(e) {
+    chrome.storage.sync.set({ geminiApiKey: e.target.value.trim() }, function() {
+        const status = document.getElementById('status');
+        status.textContent = 'API key saved';
+        status.className = 'status success';
+        status.style.display = 'block';
+        setTimeout(() => status.style.display = 'none', 2000);
+    });
+});
+
 // Load saved preferences
 document.addEventListener('DOMContentLoaded', function() {
-    // Load font preference
-    chrome.storage.sync.get(['useOpenDyslexic'], function(result) {
+    chrome.storage.sync.get(['useOpenDyslexic', 'geminiApiKey'], function(result) {
         document.getElementById('useOpenDyslexic').checked = result.useOpenDyslexic || false;
+        if (document.getElementById('geminiApiKey')) {
+            document.getElementById('geminiApiKey').value = result.geminiApiKey || '';
+        }
     });
 });

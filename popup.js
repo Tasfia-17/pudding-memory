@@ -61,7 +61,7 @@ const adaptiveModeBtn = document.getElementById('adaptiveModeBtn');
 // Smart Auto Mode
 smartAutoBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "toggleSmartAuto"}, function(response) {
+        safeSend(tabs[0].id, {action: "toggleSmartAuto"}, function(response) {
             if (response && response.active) {
                 smartAutoBtn.classList.add('active');
                 smartAutoBtn.innerHTML = '<i class="fa-solid fa-wand-sparkles"></i> Auto: ON';
@@ -76,7 +76,7 @@ smartAutoBtn.addEventListener('click', function() {
 // Reading Beam
 readingBeamBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "toggleReadingBeam"}, function(response) {
+        safeSend(tabs[0].id, {action: "toggleReadingBeam"}, function(response) {
             if (response && response.active) {
                 readingBeamBtn.classList.add('active');
                 readingBeamBtn.innerHTML = '<i class="fa-solid fa-highlighter"></i> Beam: ON';
@@ -91,7 +91,7 @@ readingBeamBtn.addEventListener('click', function() {
 // Vocab Adapter
 vocabAdaptBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "enableVocabAdapter"}, function(response) {
+        safeSend(tabs[0].id, {action: "enableVocabAdapter"}, function(response) {
             if (response && response.success) {
                 vocabAdaptBtn.classList.add('active');
                 setTimeout(() => vocabAdaptBtn.classList.remove('active'), 2000);
@@ -103,7 +103,7 @@ vocabAdaptBtn.addEventListener('click', function() {
 // Auto Chunk
 autoChunkBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "autoChunk"}, function(response) {
+        safeSend(tabs[0].id, {action: "autoChunk"}, function(response) {
             if (response && response.success) {
                 autoChunkBtn.classList.add('active');
                 setTimeout(() => autoChunkBtn.classList.remove('active'), 2000);
@@ -115,7 +115,7 @@ autoChunkBtn.addEventListener('click', function() {
 // Focus Mode
 focusModeBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "toggleFocusMode"}, function(response) {
+        safeSend(tabs[0].id, {action: "toggleFocusMode"}, function(response) {
             if (response && response.active) {
                 focusModeBtn.classList.add('active');
                 focusModeBtn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Exit Focus';
@@ -130,7 +130,7 @@ focusModeBtn.addEventListener('click', function() {
 // Complexity Map
 complexityMapBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "showComplexityMap"}, function(response) {
+        safeSend(tabs[0].id, {action: "showComplexityMap"}, function(response) {
             if (response && response.success) {
                 complexityMapBtn.classList.add('active');
                 setTimeout(() => complexityMapBtn.classList.remove('active'), 2000);
@@ -142,7 +142,7 @@ complexityMapBtn.addEventListener('click', function() {
 // Smart Restructure
 restructureBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "restructureContent"}, function(response) {
+        safeSend(tabs[0].id, {action: "restructureContent"}, function(response) {
             if (response && response.success) {
                 restructureBtn.classList.add('active');
                 setTimeout(() => restructureBtn.classList.remove('active'), 2000);
@@ -154,7 +154,7 @@ restructureBtn.addEventListener('click', function() {
 // Adaptive Mode
 adaptiveModeBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "enableAdaptiveMode"}, function(response) {
+        safeSend(tabs[0].id, {action: "enableAdaptiveMode"}, function(response) {
             if (response && response.active) {
                 adaptiveModeBtn.classList.add('active');
                 adaptiveModeBtn.innerHTML = '<i class="fa-solid fa-brain"></i> Adaptive: ON';
@@ -177,7 +177,7 @@ simplifyButton.addEventListener('click', function() {
 
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (tabs[0] && /^https?:/.test(tabs[0].url)) {
-            chrome.tabs.sendMessage(tabs[0].id, {action: "simplify"}, function(response) {
+            safeSend(tabs[0].id, {action: "simplify"}, function(response) {
                 if (chrome.runtime.lastError) {
                     console.error("Could not send simplify message:", chrome.runtime.lastError.message);
 
@@ -187,8 +187,17 @@ simplifyButton.addEventListener('click', function() {
                     loader.style.display = 'none';
                 } else {
                     if(response && response.success) {
-                        // Simplification succeeded
-                        simplifyButtonText.textContent = 'Done!';
+                        // Simplification succeeded — sync to backend
+                        simplifyButtonText.textContent = 'Saving to Brain...';
+
+                        safeSend(tabs[0].id, { action: 'getSelectedText' }, function(sel) {
+                            const text = (sel && sel.text) || document.title || '';
+                            const level = document.querySelector('.simplification-button.selected')?.getAttribute('data-level') || '3';
+                            const difficulty = parseInt(level) >= 4 ? 'high' : 'low';
+                            syncToCloud(text, difficulty, 'simplify').then(() => {
+                                simplifyButtonText.textContent = 'Simplified & Saved!';
+                            });
+                        });
                     } else {
                         // Handle error
                         simplifyButtonText.textContent = 'Error!';
@@ -313,19 +322,19 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
                 if (tabs[0]) {
                     // Reset font
-                    chrome.tabs.sendMessage(tabs[0].id, {
+                    safeSend(tabs[0].id, {
                         action: 'toggleFont',
                         enabled: false
                     });
 
                     // Reset theme
-                    chrome.tabs.sendMessage(tabs[0].id, {
+                    safeSend(tabs[0].id, {
                         action: 'applyTheme',
                         theme: 'default'
                     });
 
                     // Reset spacing
-                    chrome.tabs.sendMessage(tabs[0].id, {
+                    safeSend(tabs[0].id, {
                         action: 'adjustSpacing',
                         lineSpacing: 1.5,
                         letterSpacing: 0,
@@ -398,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Request current font state when popup opens
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         if (tabs[0] && /^https?:/.test(tabs[0].url)) {
-            chrome.tabs.sendMessage(tabs[0].id, { action: 'getFontState' }, function(response) {
+            safeSend(tabs[0].id, { action: 'getFontState' }, function(response) {
                 if (chrome.runtime.lastError) {
                     console.error("Could not get font state:", chrome.runtime.lastError.message);
                     fontToggle.checked = false; // Default to unchecked
@@ -421,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply to current tab
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             if (tabs[0] && /^https?:/.test(tabs[0].url)) {
-                chrome.tabs.sendMessage(tabs[0].id, {
+                safeSend(tabs[0].id, {
                     action: 'toggleFont',
                     enabled: enabled
                 }, function(response) {
@@ -451,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             if (tabs[0] && /^https?:/.test(tabs[0].url)) {
-                chrome.tabs.sendMessage(tabs[0].id, {
+                safeSend(tabs[0].id, {
                     action: 'adjustSpacing',
                     lineSpacing: lineSpacing,
                     letterSpacing: letterSpacing,
@@ -525,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Send message to content script to apply the theme
         chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {
+            safeSend(tabs[0].id, {
                 action: 'applyTheme',
                 theme: selectedTheme
             });
@@ -538,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tabs[0] && /^https?:/.test(tabs[0].url)) {
             chrome.storage.sync.get(['selectedTheme'], function(result) {
                 const selectedTheme = result.selectedTheme || 'default';
-                chrome.tabs.sendMessage(tabs[0].id, {
+                safeSend(tabs[0].id, {
                     action: 'applyTheme',
                     theme: selectedTheme
                 }, function(response) {
@@ -552,6 +561,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
   });
+
+// ── Cloud Memory Bridge ──────────────────────────────────────────────────────
+
+const MEMORY_API = 'http://localhost:8000';
+
+/** Safe sendMessage — silently ignores "no receiving end" errors */
+function safeSend(tabId, msg, cb) {
+    chrome.tabs.sendMessage(tabId, msg, function(response) {
+        if (chrome.runtime.lastError) return; // suppress connection errors
+        if (cb) cb(response);
+    });
+}
+
+async function syncToCloud(text, difficulty = 'high', action = 'simplify') {
+    try {
+        await fetch(`${MEMORY_API}/api/learn`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, difficulty, action, user_id: 'guest' })
+        });
+    } catch (e) {
+        console.warn('Pudding: backend offline, skipping cloud sync', e);
+    }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 
 // Toast notification helper
 function showToast(message) {
@@ -583,6 +618,11 @@ function showToast(message) {
 }
 
 
+// Brain Map button
+document.getElementById('brainMapBtn')?.addEventListener('click', function() {
+    chrome.tabs.create({ url: chrome.runtime.getURL('graph.html') });
+});
+
 // Translate Page button handler
 document.getElementById('translatePageBtn')?.addEventListener('click', async function() {
     chrome.storage.sync.get(['locale'], async function(result) {
@@ -591,7 +631,7 @@ document.getElementById('translatePageBtn')?.addEventListener('click', async fun
         const targetLang = langMap[locale] || 'en';
         
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {
+            safeSend(tabs[0].id, {
                 action: 'translatePage',
                 targetLang: targetLang
             });

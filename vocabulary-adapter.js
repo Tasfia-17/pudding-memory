@@ -132,6 +132,7 @@ class VocabularyAdapter {
     }
 
     showTooltip(element) {
+        if (!element) return;
         const simple = element.getAttribute('data-simple');
         const tooltip = document.createElement('div');
         tooltip.className = 'pudding-word-tooltip';

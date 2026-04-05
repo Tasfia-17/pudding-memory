@@ -81,55 +81,48 @@ async function getReadingLevel() {
 }
 
 async function initAICapabilities() {
-    console.log('Starting AI capabilities initialization...');
-    try {
-        if (!self.ai || !self.ai.languageModel) {
-            console.error('AI API is not available');
-            return { summarizer: null, promptSession: null }; 
+    // Using Gemini API instead of window.ai (works in all Chrome versions)
+    const systemPrompts = await loadSystemPrompts();
+    if (!systemPrompts) throw new Error('Failed to load system prompts.');
+
+    const readingLevel = await getReadingLevel();
+    const optimizeFor = await new Promise(resolve =>
+        chrome.storage.sync.get(['optimizeFor'], r => resolve(r.optimizeFor || 'textClarity'))
+    );
+
+    systemPrompt = systemPrompts[optimizeFor][readingLevel];
+    if (!systemPrompt) throw new Error('System prompt undefined.');
+
+    // promptSession is a thin wrapper so the rest of the code stays unchanged
+    promptSession = {
+        promptStreaming: async function*(text) {
+            const storage = await new Promise(r => chrome.storage.sync.get(['geminiApiKey'], r));
+            const key = storage.geminiApiKey || '';
+            if (!key) { yield 'Error: No Gemini API key set. Add it in the extension options page.'; return; }
+            let data;
+            try {
+                const res = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: systemPrompt + '\n\n' + text }] }]
+                        })
+                    }
+                );
+                data = await res.json();
+            } catch(e) {
+                console.error('Gemini fetch error:', e);
+                yield '';
+                return;
+            }
+            if (data.error) { console.error('Gemini API error:', data.error.message); yield ''; return; }
+            yield data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
         }
+    };
 
-        // Load system prompts
-        const systemPrompts = await loadSystemPrompts();
-        console.log('Loaded systemPrompts:', systemPrompts);
-
-        if (!systemPrompts) {
-            throw new Error('Failed to load system prompts.');
-        }
-
-        const readingLevel = await getReadingLevel();
-        console.log('User reading level:', readingLevel);
-
-        // Retrieve the optimization mode from storage
-        const optimizeFor = await new Promise((resolve) => {
-            chrome.storage.sync.get(['optimizeFor'], (result) => {
-                const mode = result.optimizeFor || 'textClarity';
-                console.log('Optimization mode:', mode);
-                resolve(mode);
-            });
-        });
-
-        // Select the appropriate system prompt and store globally
-        systemPrompt = systemPrompts[optimizeFor][readingLevel];
-        console.log('Selected systemPrompt:', systemPrompt);
-
-        if (!systemPrompt) {
-            throw new Error('System prompt is undefined. Check if the prompts are correctly loaded and user preferences are valid.');
-        }
-
-        const { defaultTemperature, defaultTopK } = await self.ai.languageModel.capabilities();
-        // Update existing promptSession without redeclaring
-        promptSession = await self.ai.languageModel.create({
-            temperature: defaultTemperature,
-            topK: defaultTopK,
-            systemPrompt: systemPrompt
-        });
-        console.log('Language Model initialized successfully');
-
-        return { promptSession };
-    } catch (error) {
-        console.error('Error initializing AI capabilities:', error);
-        throw error;
-    }
+    return { promptSession };
 }
 
 // Listen for messages from popup
@@ -369,43 +362,33 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                             wordCount: chunkText.split(/\s+/).length
                         });
                         
-                        // Send the chunkText as the prompt with retries and API reinitialization
+                        // Send the chunkText as the prompt with retries
                         let simplifiedText = '';
                         let attempts = 0;
-                        const maxAttempts = 20;
+                        const maxAttempts = 3; // Gemini API is reliable, no need for 20 retries
                         
                         while (attempts < maxAttempts) {
                             try {
-                                // Reinitialize the Prompt API before each attempt using initAICapabilities()
-                                await initAICapabilities();
-                                
-                                // Log the prompts before sending
                                 logPrompt(chunkText);
-
                                 const stream = await promptSession.promptStreaming(chunkText);
                                 for await (const chunk of stream) {
                                     simplifiedText = chunk.trim();
                                 }
-                                
-                                // Log the result
-                                console.log('Simplified Result:', simplifiedText.substring(0, 200) + (simplifiedText.length > 200 ? '...' : ''));
-                                
                                 if (simplifiedText && simplifiedText.trim().length > 0) {
-                                    console.log(`Successfully simplified text on attempt ${attempts + 1}`);
                                     break;
                                 }
-                                
-                                console.warn(`Empty response from API on attempt ${attempts + 1} - retrying with new API session...`);
+                                console.warn(`Empty response on attempt ${attempts + 1}`);
                             } catch (error) {
-                                console.warn(`API error on attempt ${attempts + 1}:`, error);
-                                if (attempts === maxAttempts - 1) {
-                                    throw error; // Rethrow on final attempt
+                                // Stop immediately if extension context is gone
+                                if (error.message && error.message.includes('Extension context invalidated')) {
+                                    console.warn('Extension was reloaded — stopping simplification.');
+                                    return;
                                 }
+                                console.warn(`API error on attempt ${attempts + 1}:`, error);
+                                if (attempts === maxAttempts - 1) throw error;
                             }
-                            
                             attempts++;
-                            // Add a small delay between retries
-                            await new Promise(resolve => setTimeout(resolve, 500)); // Increased delay to 500ms
+                            await new Promise(resolve => setTimeout(resolve, 500));
                         }
 
                         if (!simplifiedText || simplifiedText.trim().length === 0) {
@@ -985,3 +968,89 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true;
     }
 });
+
+// ── Predictive Highlighter ────────────────────────────────────────────────────
+// On page load, extract keywords and highlight concepts the user has struggled with.
+
+(async function predictiveHighlight() {
+    const MEMORY_API = 'http://localhost:8000';
+
+    // Simple keyword extractor: capitalised words + words > 6 chars
+    function pageKeywords() {
+        const text = document.body.innerText || '';
+        const caps = text.match(/\b[A-Z][a-z]{3,}\b/g) || [];
+        const long = text.match(/\b[a-z]{7,}\b/g) || [];
+        return [...new Set([...caps, ...long])].slice(0, 30);
+    }
+
+    let struggled = [];
+    try {
+        const res = await fetch(`${MEMORY_API}/api/check-memory`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ keywords: pageKeywords(), user_id: 'guest' })
+        });
+        const data = await res.json();
+        struggled = data.struggled_concepts || [];
+    } catch (e) {
+        return; // backend offline — fail silently
+    }
+
+    if (!struggled.length) return;
+
+    // Inject tooltip style once
+    if (!document.getElementById('pudding-highlight-style')) {
+        const style = document.createElement('style');
+        style.id = 'pudding-highlight-style';
+        style.textContent = `
+            .pudding-struggled {
+                text-decoration: underline wavy #e74c3c;
+                cursor: pointer;
+                position: relative;
+            }
+            .pudding-struggled::after {
+                content: attr(data-tip);
+                display: none;
+                position: absolute;
+                bottom: 120%;
+                left: 0;
+                background: #e74c3c;
+                color: #fff;
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                white-space: nowrap;
+                z-index: 99999;
+            }
+            .pudding-struggled:hover::after { display: block; }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Walk text nodes and wrap matched concepts
+    const pattern = new RegExp(`\\b(${struggled.map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'gi');
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const toReplace = [];
+
+    let node;
+    while ((node = walker.nextNode())) {
+        if (['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement?.tagName)) continue;
+        if (pattern.test(node.textContent)) toReplace.push(node);
+        pattern.lastIndex = 0;
+    }
+
+    toReplace.forEach(textNode => {
+        const span = document.createElement('span');
+        span.innerHTML = textNode.textContent.replace(pattern, match =>
+            `<span class="pudding-struggled" data-tip="You struggled with '${match}' before. Click to simplify.">${match}</span>`
+        );
+        // Click to trigger simplification
+        span.querySelectorAll('.pudding-struggled').forEach(el => {
+            el.addEventListener('click', () => {
+                window.getSelection()?.selectAllChildren(el);
+                document.dispatchEvent(new CustomEvent('pudding:simplify-selection'));
+            });
+        });
+        textNode.parentNode.replaceChild(span, textNode);
+    });
+})();

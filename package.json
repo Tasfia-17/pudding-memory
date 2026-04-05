@@ -1,0 +1,36 @@
+{
+  "name": "pudding",
+  "version": "2.0.0",
+  "description": "Multilingual web accessibility extension powered by Lingo.dev - Making content easier to digest for everyone, in every language",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lingo:init": "lingo init",
+    "lingo:translate": "lingo translate",
+    "build": "echo \"Extension ready for loading\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tasfia-17/Pudding.git"
+  },
+  "keywords": [
+    "accessibility",
+    "dyslexia",
+    "adhd",
+    "i18n",
+    "lingo.dev",
+    "multilingual",
+    "browser-extension",
+    "reading-assistance",
+    "cognitive-accessibility"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tasfia-17/Pudding/issues"
+  },
+  "homepage": "https://github.com/Tasfia-17/Pudding#readme",
+  "devDependencies": {
+    "lingo.dev": "^0.132.0"
+  }
+}

@@ -47,7 +47,7 @@ Reading online content is challenging for millions of people. Complex language, 
 
 ## The Solution: Pudding
 
-Pudding is a Cognitive Adaptation Engine that learns your reading patterns and transforms content in real-time — now available in 10 languages.
+Pudding is a Cognitive Adaptation Engine that learns your reading patterns and transforms content in real-time  available in 10 languages.
 
 <div align="center">
 

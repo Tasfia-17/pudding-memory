@@ -133,6 +133,7 @@ class ComplexityAnalyzer {
         if (Object.keys(sectionScores).length) {
             chrome.storage.local.set({ puddingSectionScores: sectionScores, puddingScoresUrl: location.href });
         }
+    }
 
     simplifyParagraph(paragraph) {
         // Trigger simplification for this specific paragraph

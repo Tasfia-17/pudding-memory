@@ -48,10 +48,10 @@ class SmartAutoMode {
         if (this.articleDifficulty > 70) level = 5; // High
         else if (this.articleDifficulty < 40) level = 1; // Low
         
+        if (!chrome.runtime?.id) { this.deactivate(); return; }
         try {
             chrome.storage.sync.set({ simplificationLevel: level.toString() });
         } catch (e) {
-            // Extension context invalidated (e.g. after reload) — stop the interval
             this.deactivate();
             return;
         }
@@ -63,7 +63,7 @@ class SmartAutoMode {
     }
 
     adjustInRealTime() {
-        if (!this.isActive) return;
+        if (!this.isActive || !chrome.runtime?.id) { this.deactivate(); return; }
         
         const tracker = window.cognitiveTracker;
         if (!tracker) return;

@@ -348,7 +348,8 @@ document.addEventListener('DOMContentLoaded', function() {
             statusMessage.textContent = 'Settings have been reset to defaults.';
             statusMessage.style.color = '#27ae60';
             statusMessage.style.marginTop = '10px';
-            document.querySelector('.container').appendChild(statusMessage);
+            const container = document.querySelector('.container');
+            if (container) container.appendChild(statusMessage);
             setTimeout(() => statusMessage.remove(), 3000);
         });
     });

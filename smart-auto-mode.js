@@ -43,12 +43,12 @@ class SmartAutoMode {
     }
 
     applyAutoAdjustments() {
+        if (!chrome.runtime?.id) { this.deactivate(); return; }
         // Auto-select simplification level
         let level = 3; // Default mid
         if (this.articleDifficulty > 70) level = 5; // High
         else if (this.articleDifficulty < 40) level = 1; // Low
         
-        if (!chrome.runtime?.id) { this.deactivate(); return; }
         try {
             chrome.storage.sync.set({ simplificationLevel: level.toString() });
         } catch (e) {

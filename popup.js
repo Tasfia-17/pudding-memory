@@ -628,11 +628,6 @@ document.getElementById('brainMapBtn')?.addEventListener('click', function() {
     chrome.tabs.create({ url: chrome.runtime.getURL('graph.html') });
 });
 
-// Simplified Material button
-document.getElementById('simplifiedMaterialBtn')?.addEventListener('click', function() {
-    chrome.tabs.create({ url: chrome.runtime.getURL('simplified.html') });
-});
-
 // Translate Page button handler
 document.getElementById('translatePageBtn')?.addEventListener('click', async function() {
     chrome.storage.sync.get(['locale'], async function(result) {

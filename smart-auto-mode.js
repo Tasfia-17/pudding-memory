@@ -48,7 +48,13 @@ class SmartAutoMode {
         if (this.articleDifficulty > 70) level = 5; // High
         else if (this.articleDifficulty < 40) level = 1; // Low
         
-        chrome.storage.sync.set({ simplificationLevel: level.toString() });
+        try {
+            chrome.storage.sync.set({ simplificationLevel: level.toString() });
+        } catch (e) {
+            // Extension context invalidated (e.g. after reload) — stop the interval
+            this.deactivate();
+            return;
+        }
 
         // Auto-adjust spacing for dense text
         if (this.articleDifficulty > 60) {

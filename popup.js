@@ -202,7 +202,6 @@ simplifyButton.addEventListener('click', function() {
                                 });
                             });
                         });
-                        });
                     } else {
                         // Handle error
                         simplifyButtonText.textContent = 'Error!';

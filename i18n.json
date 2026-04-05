@@ -1,0 +1,11 @@
+{
+  "locale": {
+    "source": "en",
+    "targets": ["es", "fr", "de", "ar", "zh", "ja", "hi", "pt", "bn"]
+  },
+  "buckets": {
+    "popup": ["popup.html"],
+    "content": ["content.js"],
+    "options": ["options.html"]
+  }
+}

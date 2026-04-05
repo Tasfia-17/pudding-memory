@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Brain Map – Pudding</title>
+    <script src="../vis-network.min.js"></script>
+    <style>
+        body { margin: 0; background: #0f0f1a; color: #eee; font-family: Inter, sans-serif; }
+        header { padding: 16px 24px; background: #1a1a2e; display: flex; align-items: center; gap: 12px; }
+        header h1 { margin: 0; font-size: 18px; }
+        #legend { padding: 8px 24px; font-size: 13px; display: flex; gap: 20px; background: #12122a; }
+        .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; }
+        #network { width: 100vw; height: calc(100vh - 90px); }
+        #status { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+                  background: #222; padding: 8px 16px; border-radius: 8px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/pudding-32.svg" alt="" width="28">
+        <h1>My Brain Map</h1>
+    </header>
+    <div id="legend">
+        <span><span class="dot" style="background:#e74c3c"></span>Struggling (score ≥ 60)</span>
+        <span><span class="dot" style="background:#2ecc71"></span>Mastered (score &lt; 60)</span>
+    </div>
+    <div id="network"></div>
+    <div id="status">Loading your cognitive graph…</div>
+    <script src="graph.js"></script>
+</body>
+</html>

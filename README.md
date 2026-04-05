@@ -116,6 +116,12 @@ Pudding is a Cognitive Adaptation Engine that learns your reading patterns and t
 - Gets smarter over time
 - All data stays on your device (100% private)
 
+<div align="center">
+
+<img src="images/adaptive-learning.svg" width="700" alt="Adaptive Learning Over Time">
+
+</div>
+
 ### 2. Focus Mode
 
 **Eliminate distractions instantly:**
@@ -131,6 +137,12 @@ Pudding is a Cognitive Adaptation Engine that learns your reading patterns and t
 - Visual heatmap of content difficulty
 - Click any hard section to simplify just that part
 - Detects jargon and abstract language
+
+<div align="center">
+
+<img src="images/complexity-heatmap.svg" width="700" alt="Complexity Heatmap">
+
+</div>
 
 ### 4. Smart Content Restructuring
 
@@ -183,11 +195,23 @@ points and causing cognitive overload...
 - No external API calls
 - Zero tracking or analytics
 
+<div align="center">
+
+<img src="images/privacy-architecture.svg" width="600" alt="Privacy Architecture">
+
+</div>
+
 ---
 
 ## 🌍 Multilingual Support
 
 Pudding now supports **10 languages** thanks to [Lingo.dev](https://lingo.dev) integration:
+
+<div align="center">
+
+<img src="images/global-reach.svg" width="800" alt="Global Multilingual Reach">
+
+</div>
 
 <div align="center">
 

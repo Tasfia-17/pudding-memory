@@ -1,0 +1,90 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="learnBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fcb69f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4C542;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#51cf66;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#learnBg)"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c1810" text-anchor="middle">
+    🧠 Adaptive Learning: How Pudding Gets Smarter
+  </text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="250" x2="700" y2="250" stroke="#d4845c" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Day 1 -->
+  <circle cx="150" cy="250" r="30" fill="#ff6b6b" stroke="#c92a2a" stroke-width="3"/>
+  <text x="150" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">1</text>
+  
+  <rect x="90" y="100" width="120" height="100" rx="8" fill="rgba(255,255,255,0.9)" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="150" y="125" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#c92a2a" text-anchor="middle">Day 1</text>
+  <text x="150" y="145" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">
+    <tspan x="150" dy="0">Default settings</tspan>
+    <tspan x="150" dy="14">Observing your</tspan>
+    <tspan x="150" dy="14">reading patterns</tspan>
+  </text>
+  <text x="150" y="310" font-family="Arial, sans-serif" font-size="12" fill="#c92a2a" text-anchor="middle" font-weight="600">
+    Learning...
+  </text>
+  
+  <!-- Day 3 -->
+  <circle cx="300" cy="250" r="30" fill="#ffa94d" stroke="#d4845c" stroke-width="3"/>
+  <text x="300" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">3</text>
+  
+  <rect x="240" y="320" width="120" height="100" rx="8" fill="rgba(255,255,255,0.9)" stroke="#ffa94d" stroke-width="2"/>
+  <text x="300" y="345" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#d4845c" text-anchor="middle">Day 3</text>
+  <text x="300" y="365" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">
+    <tspan x="300" dy="0">Detected slow</tspan>
+    <tspan x="300" dy="14">reading on</tspan>
+    <tspan x="300" dy="14">complex sections</tspan>
+  </text>
+  <text x="300" y="90" font-family="Arial, sans-serif" font-size="12" fill="#d4845c" text-anchor="middle" font-weight="600">
+    Adapting...
+  </text>
+  
+  <!-- Day 7 -->
+  <circle cx="500" cy="250" r="30" fill="#F4C542" stroke="#d4845c" stroke-width="3"/>
+  <text x="500" y="260" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle">7</text>
+  
+  <rect x="440" y="100" width="120" height="100" rx="8" fill="rgba(255,255,255,0.9)" stroke="#F4C542" stroke-width="2"/>
+  <text x="500" y="125" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#d4845c" text-anchor="middle">Day 7</text>
+  <text x="500" y="145" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">
+    <tspan x="500" dy="0">Auto-adjusts</tspan>
+    <tspan x="500" dy="14">simplification</tspan>
+    <tspan x="500" dy="14">to your style</tspan>
+  </text>
+  <text x="500" y="310" font-family="Arial, sans-serif" font-size="12" fill="#d4845c" text-anchor="middle" font-weight="600">
+    Optimizing...
+  </text>
+  
+  <!-- Day 14+ -->
+  <circle cx="650" cy="250" r="30" fill="#51cf66" stroke="#2b8a3e" stroke-width="3"/>
+  <text x="650" y="255" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">14+</text>
+  
+  <rect x="590" y="320" width="120" height="100" rx="8" fill="rgba(255,255,255,0.9)" stroke="#51cf66" stroke-width="2"/>
+  <text x="650" y="345" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2b8a3e" text-anchor="middle">Day 14+</text>
+  <text x="650" y="365" font-family="Arial, sans-serif" font-size="11" fill="#333" text-anchor="middle">
+    <tspan x="650" dy="0">Fully personalized</tspan>
+    <tspan x="650" dy="14">Knows your</tspan>
+    <tspan x="650" dy="14">reading style</tspan>
+  </text>
+  <text x="650" y="90" font-family="Arial, sans-serif" font-size="12" fill="#2b8a3e" text-anchor="middle" font-weight="600">
+    ✨ Perfected!
+  </text>
+  
+  <!-- What Pudding Tracks -->
+  <rect x="50" y="450" width="700" height="40" rx="8" fill="rgba(255,255,255,0.8)" stroke="#d4845c" stroke-width="2"/>
+  <text x="400" y="475" font-family="Arial, sans-serif" font-size="12" fill="#2c1810" text-anchor="middle">
+    <tspan font-weight="bold">Tracks:</tspan> Scroll speed • Reading pauses • Re-reads • Time on complex sections • Preferred simplification level
+  </text>
+</svg>

@@ -1,0 +1,115 @@
+<svg width="900" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="globalBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffecd2;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowEffect">
+      <stop offset="0%" style="stop-color:#F4C542;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#F4C542;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="600" fill="url(#globalBg)"/>
+  
+  <!-- Title -->
+  <text x="450" y="40" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#2c1810" text-anchor="middle">
+    🌍 Global Reach: 10 Languages, 5+ Billion People
+  </text>
+  
+  <!-- Central Pudding Logo -->
+  <circle cx="450" cy="300" r="80" fill="url(#glowEffect)"/>
+  <ellipse cx="450" cy="320" rx="35" ry="6" fill="#000000" opacity="0.15"/>
+  <path d="M 425 300 Q 425 260 450 255 Q 475 260 475 300 L 475 305 Q 475 315 450 315 Q 425 315 425 305 Z" 
+        fill="url(#puddingGradient)" stroke="#D4A574" stroke-width="2"/>
+  <defs>
+    <linearGradient id="puddingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE5B4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4C542;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="450" cy="255" rx="25" ry="10" fill="#C17817"/>
+  <circle cx="440" cy="270" r="2.5" fill="#8B5A00"/>
+  <circle cx="460" cy="270" r="2.5" fill="#8B5A00"/>
+  <path d="M 443 280 Q 450 285 457 280" fill="none" stroke="#8B5A00" stroke-width="2" stroke-linecap="round"/>
+  
+  <text x="450" y="350" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c1810" text-anchor="middle">
+    Pudding
+  </text>
+  
+  <!-- Language Nodes in Circle -->
+  
+  <!-- English (Top) -->
+  <line x1="450" y1="220" x2="450" y2="120" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="450" cy="100" r="35" fill="#fff" stroke="#4285F4" stroke-width="3"/>
+  <text x="450" y="100" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇬🇧</text>
+  <text x="450" y="120" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">English</text>
+  <text x="450" y="75" font-family="Arial, sans-serif" font-size="11" fill="#4285F4" text-anchor="middle" font-weight="600">1.5B</text>
+  
+  <!-- Spanish (Top Right) -->
+  <line x1="490" y1="240" x2="600" y2="140" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="620" cy="120" r="35" fill="#fff" stroke="#ff6b6b" stroke-width="3"/>
+  <text x="620" y="120" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇪🇸</text>
+  <text x="620" y="140" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">Español</text>
+  <text x="620" y="95" font-family="Arial, sans-serif" font-size="11" fill="#ff6b6b" text-anchor="middle" font-weight="600">559M</text>
+  
+  <!-- Chinese (Right) -->
+  <line x1="530" y1="300" x2="680" y2="300" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="700" cy="300" r="35" fill="#fff" stroke="#ff6b6b" stroke-width="3"/>
+  <text x="700" y="300" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇨🇳</text>
+  <text x="700" y="320" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">中文</text>
+  <text x="700" y="275" font-family="Arial, sans-serif" font-size="11" fill="#ff6b6b" text-anchor="middle" font-weight="600">1.3B</text>
+  
+  <!-- Hindi (Bottom Right) -->
+  <line x1="490" y1="360" x2="600" y2="460" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="620" cy="480" r="35" fill="#fff" stroke="#51cf66" stroke-width="3"/>
+  <text x="620" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇮🇳</text>
+  <text x="620" y="500" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">हिन्दी</text>
+  <text x="620" y="525" font-family="Arial, sans-serif" font-size="11" fill="#51cf66" text-anchor="middle" font-weight="600">602M</text>
+  
+  <!-- Arabic (Bottom) -->
+  <line x1="450" y1="380" x2="450" y2="480" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="450" cy="500" r="35" fill="#fff" stroke="#51cf66" stroke-width="3"/>
+  <text x="450" y="500" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇸🇦</text>
+  <text x="450" y="520" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">العربية</text>
+  <text x="450" y="545" font-family="Arial, sans-serif" font-size="11" fill="#51cf66" text-anchor="middle" font-weight="600">422M</text>
+  
+  <!-- Bengali (Bottom Left) -->
+  <line x1="410" y1="360" x2="300" y2="460" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="280" cy="480" r="35" fill="#fff" stroke="#51cf66" stroke-width="3"/>
+  <text x="280" y="480" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇧🇩</text>
+  <text x="280" y="500" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">বাংলা</text>
+  <text x="280" y="525" font-family="Arial, sans-serif" font-size="11" fill="#51cf66" text-anchor="middle" font-weight="600">272M</text>
+  
+  <!-- Portuguese (Left) -->
+  <line x1="370" y1="300" x2="220" y2="300" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="200" cy="300" r="35" fill="#fff" stroke="#51cf66" stroke-width="3"/>
+  <text x="200" y="300" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇵🇹</text>
+  <text x="200" y="320" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">Português</text>
+  <text x="200" y="275" font-family="Arial, sans-serif" font-size="11" fill="#51cf66" text-anchor="middle" font-weight="600">264M</text>
+  
+  <!-- French (Top Left) -->
+  <line x1="410" y1="240" x2="300" y2="140" stroke="#d4845c" stroke-width="2" stroke-dasharray="5,5"/>
+  <circle cx="280" cy="120" r="35" fill="#fff" stroke="#4285F4" stroke-width="3"/>
+  <text x="280" y="120" font-family="Arial, sans-serif" font-size="24" text-anchor="middle">🇫🇷</text>
+  <text x="280" y="140" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c1810" text-anchor="middle">Français</text>
+  <text x="280" y="95" font-family="Arial, sans-serif" font-size="11" fill="#4285F4" text-anchor="middle" font-weight="600">280M</text>
+  
+  <!-- German -->
+  <circle cx="150" cy="180" r="30" fill="#fff" stroke="#ffa94d" stroke-width="2"/>
+  <text x="150" y="180" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🇩🇪</text>
+  <text x="150" y="220" font-family="Arial, sans-serif" font-size="9" fill="#2c1810" text-anchor="middle">Deutsch 134M</text>
+  
+  <!-- Japanese -->
+  <circle cx="750" cy="180" r="30" fill="#fff" stroke="#ffa94d" stroke-width="2"/>
+  <text x="750" y="180" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">🇯🇵</text>
+  <text x="750" y="220" font-family="Arial, sans-serif" font-size="9" fill="#2c1810" text-anchor="middle">日本語 125M</text>
+  
+  <!-- Bottom Stats -->
+  <rect x="250" y="555" width="400" height="35" rx="8" fill="rgba(255,255,255,0.9)" stroke="#d4845c" stroke-width="2"/>
+  <text x="450" y="578" font-family="Arial, sans-serif" font-size="14" fill="#2c1810" text-anchor="middle" font-weight="bold">
+    Powered by Lingo.dev • Instant Translation • Zero Latency
+  </text>
+</svg>

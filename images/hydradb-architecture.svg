@@ -1,0 +1,99 @@
+<svg width="800" height="420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2"/>
+      <stop offset="100%" style="stop-color:#fcb69f"/>
+    </linearGradient>
+    <linearGradient id="hydra" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="node1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e74c3c"/>
+      <stop offset="100%" style="stop-color:#c0392b"/>
+    </linearGradient>
+    <linearGradient id="node2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2ecc71"/>
+      <stop offset="100%" style="stop-color:#27ae60"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#bg)" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="38" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="#2c1810" text-anchor="middle">Pudding × HydraDB — Cognitive Memory Architecture</text>
+
+  <!-- Extension box -->
+  <rect x="30" y="60" width="200" height="290" rx="10" fill="rgba(255,255,255,0.85)" stroke="#d4845c" stroke-width="2"/>
+  <text x="130" y="85" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#d4845c" text-anchor="middle">Chrome Extension</text>
+  <rect x="50" y="100" width="160" height="36" rx="6" fill="#ffecd2" stroke="#d4845c" stroke-width="1.5"/>
+  <text x="130" y="123" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">Gemini Nano (Simplify)</text>
+  <rect x="50" y="148" width="160" height="36" rx="6" fill="#ffecd2" stroke="#d4845c" stroke-width="1.5"/>
+  <text x="130" y="171" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">Cognitive Tracker</text>
+  <rect x="50" y="196" width="160" height="36" rx="6" fill="#ffecd2" stroke="#d4845c" stroke-width="1.5"/>
+  <text x="130" y="219" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">Complexity Analyzer</text>
+  <rect x="50" y="244" width="160" height="36" rx="6" fill="#ffecd2" stroke="#d4845c" stroke-width="1.5"/>
+  <text x="130" y="267" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">Predictive Highlighter</text>
+  <rect x="50" y="292" width="160" height="36" rx="6" fill="#F4C542" stroke="#d4845c" stroke-width="1.5"/>
+  <text x="130" y="315" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#2c1810" text-anchor="middle">Brain Map Viewer</text>
+
+  <!-- Arrow: Extension → Backend -->
+  <path d="M 230 200 L 290 200" stroke="#8b5a3c" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+  <polygon points="290,200 282,196 282,204" fill="#8b5a3c"/>
+  <text x="260" y="193" font-family="Arial,sans-serif" font-size="9" fill="#8b5a3c" text-anchor="middle">POST /api/learn</text>
+
+  <!-- Backend box -->
+  <rect x="290" y="60" width="200" height="290" rx="10" fill="rgba(255,255,255,0.85)" stroke="#8b5a3c" stroke-width="2"/>
+  <text x="390" y="85" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#8b5a3c" text-anchor="middle">FastAPI Backend</text>
+  <rect x="310" y="100" width="160" height="36" rx="6" fill="#ffecd2" stroke="#8b5a3c" stroke-width="1.5"/>
+  <text x="390" y="123" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">POST /api/learn</text>
+  <rect x="310" y="148" width="160" height="36" rx="6" fill="#ffecd2" stroke="#8b5a3c" stroke-width="1.5"/>
+  <text x="390" y="171" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">GET /api/graph</text>
+  <rect x="310" y="196" width="160" height="36" rx="6" fill="#ffecd2" stroke="#8b5a3c" stroke-width="1.5"/>
+  <text x="390" y="219" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">POST /api/check-memory</text>
+  <rect x="310" y="244" width="160" height="36" rx="6" fill="#ffecd2" stroke="#8b5a3c" stroke-width="1.5"/>
+  <text x="390" y="267" font-family="Arial,sans-serif" font-size="11" fill="#2c1810" text-anchor="middle">Concept Extractor</text>
+  <rect x="310" y="292" width="160" height="36" rx="6" fill="#F4C542" stroke="#8b5a3c" stroke-width="1.5"/>
+  <text x="390" y="315" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#2c1810" text-anchor="middle">Relation Builder</text>
+
+  <!-- Arrow: Backend → HydraDB -->
+  <path d="M 490 200 L 550 200" stroke="#1a1a2e" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+  <polygon points="550,200 542,196 542,204" fill="#1a1a2e"/>
+  <text x="520" y="193" font-family="Arial,sans-serif" font-size="9" fill="#1a1a2e" text-anchor="middle">ChromaDB</text>
+
+  <!-- HydraDB box -->
+  <rect x="550" y="60" width="210" height="290" rx="10" fill="url(#hydra)" stroke="#F4C542" stroke-width="2"/>
+  <text x="655" y="85" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#F4C542" text-anchor="middle">HydraDB</text>
+  <text x="655" y="102" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Cognitive Graph Store</text>
+
+  <!-- Nodes in HydraDB -->
+  <circle cx="655" cy="145" r="22" fill="url(#node1)" stroke="#fff" stroke-width="1.5"/>
+  <text x="655" y="149" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Quantum</text>
+  <text x="655" y="160" font-family="Arial,sans-serif" font-size="8" fill="#ffaaaa" text-anchor="middle">score: 85</text>
+
+  <circle cx="600" cy="210" r="22" fill="url(#node1)" stroke="#fff" stroke-width="1.5"/>
+  <text x="600" y="214" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Entropy</text>
+  <text x="600" y="225" font-family="Arial,sans-serif" font-size="8" fill="#ffaaaa" text-anchor="middle">score: 72</text>
+
+  <circle cx="710" cy="210" r="22" fill="url(#node2)" stroke="#fff" stroke-width="1.5"/>
+  <text x="710" y="214" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Algorithm</text>
+  <text x="710" y="225" font-family="Arial,sans-serif" font-size="8" fill="#aaffaa" text-anchor="middle">score: 30</text>
+
+  <circle cx="655" cy="275" r="22" fill="url(#node2)" stroke="#fff" stroke-width="1.5"/>
+  <text x="655" y="279" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Recursion</text>
+  <text x="655" y="290" font-family="Arial,sans-serif" font-size="8" fill="#aaffaa" text-anchor="middle">score: 25</text>
+
+  <!-- Edges between nodes -->
+  <line x1="655" y1="167" x2="610" y2="188" stroke="#F4C542" stroke-width="1" opacity="0.6"/>
+  <line x1="655" y1="167" x2="700" y2="188" stroke="#F4C542" stroke-width="1" opacity="0.6"/>
+  <line x1="610" y1="232" x2="645" y2="253" stroke="#F4C542" stroke-width="1" opacity="0.6"/>
+  <line x1="700" y1="232" x2="665" y2="253" stroke="#F4C542" stroke-width="1" opacity="0.6"/>
+
+  <!-- Legend -->
+  <rect x="30" y="370" width="740" height="36" rx="6" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="60" cy="388" r="7" fill="#e74c3c"/>
+  <text x="73" y="392" font-family="Arial,sans-serif" font-size="11" fill="#2c1810">Struggling (score ≥ 60)</text>
+  <circle cx="220" cy="388" r="7" fill="#2ecc71"/>
+  <text x="233" y="392" font-family="Arial,sans-serif" font-size="11" fill="#2c1810">Mastered (score &lt; 60)</text>
+  <text x="430" y="392" font-family="Arial,sans-serif" font-size="11" fill="#8b5a3c" text-anchor="middle">Relations: USER → STRUGGLED_WITH / MASTERED → Concept</text>
+</svg>

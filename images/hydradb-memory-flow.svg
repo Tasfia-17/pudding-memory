@@ -1,0 +1,81 @@
+<svg width="800" height="360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2"/>
+      <stop offset="100%" style="stop-color:#fcb69f"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#0f0f1a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="360" fill="url(#bg2)" rx="12"/>
+  <text x="400" y="36" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="#2c1810" text-anchor="middle">The Cognitive Graph — How HydraDB Remembers You</text>
+
+  <!-- Step 1 -->
+  <rect x="30" y="60" width="160" height="200" rx="10" fill="rgba(255,255,255,0.85)" stroke="#d4845c" stroke-width="2"/>
+  <text x="110" y="84" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#d4845c" text-anchor="middle">① You Read</text>
+  <text x="110" y="108" font-family="Arial,sans-serif" font-size="10" fill="#2c1810" text-anchor="middle">Wikipedia: Quantum</text>
+  <text x="110" y="122" font-family="Arial,sans-serif" font-size="10" fill="#2c1810" text-anchor="middle">Entanglement</text>
+  <rect x="50" y="138" width="120" height="28" rx="5" fill="#e74c3c"/>
+  <text x="110" y="157" font-family="Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle">Click: Simplify</text>
+  <text x="110" y="185" font-family="Arial,sans-serif" font-size="9" fill="#8b5a3c" text-anchor="middle">Difficulty: HIGH</text>
+  <text x="110" y="200" font-family="Arial,sans-serif" font-size="9" fill="#8b5a3c" text-anchor="middle">Score: 85</text>
+  <text x="110" y="240" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Session 1</text>
+
+  <!-- Arrow 1→2 -->
+  <path d="M 190 160 L 230 160" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="230,160 222,156 222,164" fill="#8b5a3c"/>
+  <text x="210" y="152" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">POST</text>
+  <text x="210" y="162" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">/api/learn</text>
+
+  <!-- Step 2 -->
+  <rect x="230" y="60" width="160" height="200" rx="10" fill="url(#dark)" stroke="#F4C542" stroke-width="2"/>
+  <text x="310" y="84" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#F4C542" text-anchor="middle">② HydraDB Saves</text>
+  <circle cx="310" cy="130" r="28" fill="#e74c3c" stroke="#fff" stroke-width="1.5"/>
+  <text x="310" y="126" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Quantum</text>
+  <text x="310" y="138" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Entanglement</text>
+  <text x="310" y="170" font-family="Arial,sans-serif" font-size="9" fill="#F4C542" text-anchor="middle">STRUGGLED_WITH</text>
+  <text x="310" y="185" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">score: 85 → stored</text>
+  <text x="310" y="240" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Persistent across sessions</text>
+
+  <!-- Arrow 2→3 -->
+  <path d="M 390 160 L 430 160" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="430,160 422,156 422,164" fill="#8b5a3c"/>
+  <text x="410" y="152" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">GET</text>
+  <text x="410" y="162" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">/api/check</text>
+
+  <!-- Step 3 -->
+  <rect x="430" y="60" width="160" height="200" rx="10" fill="rgba(255,255,255,0.85)" stroke="#d4845c" stroke-width="2"/>
+  <text x="510" y="84" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#d4845c" text-anchor="middle">③ Next Visit</text>
+  <text x="510" y="108" font-family="Arial,sans-serif" font-size="10" fill="#2c1810" text-anchor="middle">Reddit: Quantum</text>
+  <text x="510" y="122" font-family="Arial,sans-serif" font-size="10" fill="#2c1810" text-anchor="middle">Physics thread</text>
+  <rect x="450" y="138" width="120" height="28" rx="5" fill="#e74c3c" opacity="0.15" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="510" y="157" font-family="Arial,sans-serif" font-size="9" fill="#e74c3c" text-anchor="middle">⚠ Pudding recognises it</text>
+  <text x="510" y="185" font-family="Arial,sans-serif" font-size="9" fill="#8b5a3c" text-anchor="middle">Red underline appears</text>
+  <text x="510" y="200" font-family="Arial,sans-serif" font-size="9" fill="#8b5a3c" text-anchor="middle">before you even ask</text>
+  <text x="510" y="240" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Session 2 (different device)</text>
+
+  <!-- Arrow 3→4 -->
+  <path d="M 590 160 L 630 160" stroke="#8b5a3c" stroke-width="2" fill="none"/>
+  <polygon points="630,160 622,156 622,164" fill="#8b5a3c"/>
+  <text x="610" y="152" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">Auto</text>
+  <text x="610" y="162" font-family="Arial,sans-serif" font-size="8" fill="#8b5a3c" text-anchor="middle">simplify</text>
+
+  <!-- Step 4 -->
+  <rect x="630" y="60" width="140" height="200" rx="10" fill="rgba(255,255,255,0.85)" stroke="#2ecc71" stroke-width="2"/>
+  <text x="700" y="84" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">④ You Master It</text>
+  <circle cx="700" cy="140" r="28" fill="#2ecc71" stroke="#fff" stroke-width="1.5"/>
+  <text x="700" y="136" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Quantum</text>
+  <text x="700" y="148" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle">Entanglement</text>
+  <text x="700" y="178" font-family="Arial,sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">MASTERED</text>
+  <text x="700" y="193" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Node turns green</text>
+  <text x="700" y="240" font-family="Arial,sans-serif" font-size="9" fill="#aaa" text-anchor="middle">Graph updated</text>
+
+  <!-- Bottom label -->
+  <rect x="30" y="280" width="740" height="60" rx="8" fill="rgba(255,255,255,0.5)"/>
+  <text x="400" y="302" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#2c1810" text-anchor="middle">🏆 Judging Criteria: "Knows about user before user asks"</text>
+  <text x="400" y="322" font-family="Arial,sans-serif" font-size="11" fill="#8b5a3c" text-anchor="middle">HydraDB persists your cognitive graph across sessions and devices.</text>
+  <text x="400" y="338" font-family="Arial,sans-serif" font-size="11" fill="#8b5a3c" text-anchor="middle">Pudding auto-highlights struggled concepts the moment a page loads — no click needed.</text>
+</svg>

@@ -1,0 +1,76 @@
+<svg width="700" height="380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffecd2"/>
+      <stop offset="100%" style="stop-color:#fcb69f"/>
+    </linearGradient>
+    <linearGradient id="darkbg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#0f0f1a"/>
+    </linearGradient>
+    <radialGradient id="glow-red" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glow-green" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#2ecc71;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="700" height="380" fill="url(#bg3)" rx="12"/>
+  <text x="350" y="34" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#2c1810" text-anchor="middle">My Brain Map — Cognitive Graph Visualisation</text>
+
+  <!-- Graph canvas -->
+  <rect x="30" y="50" width="640" height="270" rx="10" fill="url(#darkbg)" stroke="#F4C542" stroke-width="1.5"/>
+
+  <!-- Glow halos -->
+  <circle cx="200" cy="160" r="55" fill="url(#glow-red)"/>
+  <circle cx="420" cy="130" r="55" fill="url(#glow-red)"/>
+  <circle cx="530" cy="220" r="45" fill="url(#glow-green)"/>
+  <circle cx="310" cy="240" r="45" fill="url(#glow-green)"/>
+  <circle cx="130" cy="250" r="40" fill="url(#glow-red)"/>
+
+  <!-- Edges -->
+  <line x1="200" y1="160" x2="420" y2="130" stroke="#F4C542" stroke-width="1" opacity="0.4"/>
+  <line x1="200" y1="160" x2="310" y2="240" stroke="#F4C542" stroke-width="1" opacity="0.4"/>
+  <line x1="200" y1="160" x2="130" y2="250" stroke="#F4C542" stroke-width="1" opacity="0.4"/>
+  <line x1="420" y1="130" x2="530" y2="220" stroke="#F4C542" stroke-width="1" opacity="0.4"/>
+  <line x1="310" y1="240" x2="530" y2="220" stroke="#F4C542" stroke-width="1" opacity="0.4"/>
+  <line x1="420" y1="130" x2="310" y2="240" stroke="#F4C542" stroke-width="1" opacity="0.3"/>
+
+  <!-- Red nodes (struggling) -->
+  <circle cx="200" cy="160" r="32" fill="#e74c3c" stroke="#fff" stroke-width="2"/>
+  <text x="200" y="156" font-family="Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">Quantum</text>
+  <text x="200" y="169" font-family="Arial,sans-serif" font-size="9" fill="#ffcccc" text-anchor="middle">score: 85</text>
+
+  <circle cx="420" cy="130" r="30" fill="#e74c3c" stroke="#fff" stroke-width="2"/>
+  <text x="420" y="126" font-family="Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">Entropy</text>
+  <text x="420" y="139" font-family="Arial,sans-serif" font-size="9" fill="#ffcccc" text-anchor="middle">score: 72</text>
+
+  <circle cx="130" cy="250" r="26" fill="#c0392b" stroke="#fff" stroke-width="2"/>
+  <text x="130" y="246" font-family="Arial,sans-serif" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">Neural</text>
+  <text x="130" y="258" font-family="Arial,sans-serif" font-size="8" fill="#ffcccc" text-anchor="middle">score: 68</text>
+
+  <!-- Green nodes (mastered) -->
+  <circle cx="530" cy="220" r="30" fill="#2ecc71" stroke="#fff" stroke-width="2"/>
+  <text x="530" y="216" font-family="Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">Algorithm</text>
+  <text x="530" y="229" font-family="Arial,sans-serif" font-size="9" fill="#ccffcc" text-anchor="middle">score: 28</text>
+
+  <circle cx="310" cy="240" r="28" fill="#27ae60" stroke="#fff" stroke-width="2"/>
+  <text x="310" y="236" font-family="Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">Recursion</text>
+  <text x="310" y="249" font-family="Arial,sans-serif" font-size="9" fill="#ccffcc" text-anchor="middle">score: 20</text>
+
+  <!-- Small floating node -->
+  <circle cx="590" cy="100" r="20" fill="#2ecc71" stroke="#fff" stroke-width="1.5"/>
+  <text x="590" y="96" font-family="Arial,sans-serif" font-size="8" fill="#fff" text-anchor="middle">Sorting</text>
+  <text x="590" y="107" font-family="Arial,sans-serif" font-size="7" fill="#ccffcc" text-anchor="middle">score: 15</text>
+  <line x1="530" y1="220" x2="590" y2="100" stroke="#F4C542" stroke-width="1" opacity="0.3"/>
+
+  <!-- Legend -->
+  <rect x="30" y="335" width="640" height="34" rx="6" fill="rgba(255,255,255,0.55)"/>
+  <circle cx="70" cy="352" r="8" fill="#e74c3c"/>
+  <text x="84" y="356" font-family="Arial,sans-serif" font-size="11" fill="#2c1810">Struggling (≥60) — auto-highlighted on next visit</text>
+  <circle cx="380" cy="352" r="8" fill="#2ecc71"/>
+  <text x="394" y="356" font-family="Arial,sans-serif" font-size="11" fill="#2c1810">Mastered (&lt;60) — HydraDB remembers</text>
+</svg>
